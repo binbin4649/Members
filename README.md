@@ -8,6 +8,9 @@
   
 という流れの、新しいテーブルを追加して会員管理するタイプのプラグインです。  
 
+BaserCMS  
+https://github.com/baserproject/basercms
+
 
 ## Functions
 
@@ -29,7 +32,7 @@
 
   1. ダウンロードまたは、git clone
   2. Membersフォルダを、app/Plugin/に投げ込む
-  3. BaserCMSの管理画面から有効化  
+  3. BaserCMSの管理画面から有効化
 
   - ログイン  
   http://xxx.xxx/members/Mypages/login
@@ -40,6 +43,12 @@
   - 管理画面  
   システムナビ -> Membersプラグイン
   
+
+## Support BaserCMS Version
+
+  - 3.0.9
+  - 3.1.0-dev
+
 
 ## Roadmap
 
