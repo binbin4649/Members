@@ -43,6 +43,10 @@ https://github.com/baserproject/basercms
   - 管理画面  
   システムナビ -> Membersプラグイン
   
+## Attention
+
+  - テーマ変更で初期データ読み込むと、会員（メンバー）が全部削除されます。
+
 
 ## Support BaserCMS Version
 

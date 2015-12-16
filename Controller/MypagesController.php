@@ -214,7 +214,7 @@ class MypagesController extends BcPluginAppController {
             $body['url'] = $url;
             $email = $this->data['Mypage']['username'];
             if (!$this->sendMail($email, '仮登録しました。', $body, array('template'=>'Members.welcome_mail'))) {
-            //if (!$this->sendMail($email, '仮登録しました。', $url)) {
+              $this->Mypage->delete($this->Mypage->id); //失敗したら登録したのを削除
               $this->setMessage('メール送信時にエラーが発生しました。', true);
               return;
             }
