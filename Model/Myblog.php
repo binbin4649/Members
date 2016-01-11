@@ -22,14 +22,14 @@ class Myblog extends BcPluginAppModel {
                 $myblog = $this->find('first', array('conditions'=>array('ox_pg_blog_content_id'=>$content['BlogContent']['id'])));
                 if(!$myblog){
                     $my['Myblog'] = array('ox_pg_blog_content_id'=>$content['BlogContent']['id']);
-                    $this->save($my);    
+                    return $this->save($my);
                 }
             }
             $myblogs = $this->find('all');
             foreach($myblogs as $myblog){
                 $content = $this->BlogContent->find('first', array('conditions'=>array('id'=>$myblog['Myblog']['ox_pg_blog_content_id'])));
                 if(!$content){
-                    $this->delete($myblog['Myblog']['id']);
+                    return $this->delete($myblog['Myblog']['id']);
                 }
             }
         }

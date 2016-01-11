@@ -22,14 +22,14 @@ class Mymail extends BcPluginAppModel {
                 $mymail = $this->find('first', array('conditions'=>array('ox_pg_mail_content_id'=>$content['MailContent']['id'])));
                 if(!$mymail){
                     $my['Mymail'] = array('ox_pg_mail_content_id'=>$content['MailContent']['id']);
-                    $this->save($my);    
+                    return $this->save($my);    
                 }
             }
             $mymails = $this->find('all');
             foreach($mymails as $mymail){
                 $content = $this->MailContent->find('first', array('conditions'=>array('id'=>$mymail['Mymail']['ox_pg_mail_content_id'])));
                 if(!$content){
-                    $this->delete($mymail['Mymail']['id']);
+                    return $this->delete($mymail['Mymail']['id']);
                 }
             }
         }
