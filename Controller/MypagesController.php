@@ -201,6 +201,7 @@ class MypagesController extends BcPluginAppController {
         //  保存
         $this->request->data['Mypage']['name'] = $this->request->data['Mypage']['username'];
         $this->request->data['Mypage']['email'] = $this->request->data['Mypage']['username'];
+        $this->Mypage->Reregistration($this->request->data['Mypage']['email']); //未認証だったら一旦削除、再登録
         if( $this->Mypage->save($this->request->data)){
             // ユーザアクティベート(本登録)用URLの作成
             $url = 

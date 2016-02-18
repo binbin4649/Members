@@ -103,4 +103,11 @@ class Mypage extends BcPluginAppModel {
 	    return Security::hash( $this->field('modified'), 'md5', true);
 	}
 
+    public function Reregistration($email){
+        //既に登録があって、未認証だったら一旦削除する
+        $mypages = $this->find('first', array('conditions' => array('status'=>1, 'name'=>$email)));
+        if($mypages) $this->delete($mypages['Mypage']['id']);
+        return true;
+    }
+
 }

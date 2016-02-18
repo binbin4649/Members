@@ -28,7 +28,7 @@ if ($this->Session->check('Message.auth')) {
 <?php echo $this->BcForm->end() ?>
 <div class="section">
 <p>「<?php echo $email; ?>」から、仮登録完了のメールが送信されます。<br>
-※迷惑メールフィルターなど、メールが受信できるように設定を確認してください。<br>
+※もし届いていない場合は、迷惑メールフィルターなどを確認し、再登録して下さい。<br>
 メール本文にあるURLをクリックすると、本登録となりログインできるようになります。
 </p>
 </div>
