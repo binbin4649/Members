@@ -33,6 +33,9 @@ https://github.com/baserproject/basercms
   1. ダウンロードまたは、git clone
   2. Membersフォルダを、app/Plugin/に投げ込む
   3. BaserCMSの管理画面から有効化
+  4. 送信メール設定  
+システム管理、サイトの基本設定のオプションを開き、メール設定関連のSMTP送信に必要事項を入力。
+
 
   - ログイン  
   http://xxx.xxx/members/Mypages/login
