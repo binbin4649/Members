@@ -164,7 +164,7 @@ class MypagesController extends BcPluginAppController {
       }else{
         //ログイン失敗したときの処理
         $user = $this->Mypage->findByUsername($this->request->data['Mypage']['username']);
-        if($user['Mypage']['status'] == 1){
+        if($user and $user['Mypage']['status'] == 1){
           $this->setMessage('メールのURLをクリックして、本登録してください。', true);
         }else{
           $this->setMessage('アカウント名、パスワードが間違っています。', true);

@@ -13,14 +13,15 @@
  */
 ?>
 
-
+<div class="baser-form baser-form-input">
 <div class="section">
 	<p>パスワードを忘れた方は、登録されているメールアドレスを送信してください。<br />
 		新しいパスワードをメールでお知らせします。</p>
 		<?php echo $this->BcForm->create('Mypage', array('action' => 'reset_password')) ?>
 	<div class="submit">
-		<?php echo $this->BcForm->input('Mypage' . '.email', array('type' => 'text', 'size' => 60)) ?>
-		<?php echo $this->BcForm->submit('送信', array('div' => false, 'class' => 'btn-red button')) ?>
+		<?php echo $this->BcForm->input('Mypage' . '.email', array('type' => 'text', 'size' => 30)) ?>
+		<?php echo $this->BcForm->submit('送信', array('div' => false, 'class' => 'btn btn-lg btn-primary form-submit')) ?>
 	</div>
 	<?php echo $this->BcForm->end() ?>
+</div>
 </div>
