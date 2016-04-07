@@ -1,15 +1,10 @@
 <?php 
-App::uses('BcPluginAppController', 'Controller');
 
-class MypagesController extends BcPluginAppController {
+class MypagesController extends MembersAppController {
   
   public $name = 'Mypages';
 
   public $uses = array('Plugin', 'User', 'Members.Mypage', 'Members.Mylog', 'Members.Myblog', 'Members.Mymail');
-
-  public $helpers = array('BcPage', 'BcHtml', 'BcTime', 'BcForm');  
-
-  public $components = array('Auth', 'Cookie', 'BcEmail');
   
   public $subMenuElements = array('');
 
@@ -251,13 +246,15 @@ class MypagesController extends BcPluginAppController {
     $this->pageTitle = 'パスワードのリセット';
     if ($this->request->data) {
       if (empty($this->request->data['Mypage']['email'])) {
-        $this->Session->setFlash('メールアドレスを入力してください。');
+        //$this->Session->setFlash('メールアドレスを入力してください。');
+        $this->setMessage('メールアドレスを入力してください。', true);
         return;
       }
       $email = trim($this->request->data['Mypage']['email']);
       $user = $this->Mypage->findByEmail($email);
       if (!$user) {
-        $this->Session->setFlash('送信されたメールアドレスは登録されていません。');
+        //$this->Session->setFlash('送信されたメールアドレスは登録されていません。');
+        $this->setMessage('送信されたメールアドレスは登録されていません。', true);
         return;
       }
       $password = $this->generatePassword(6);
@@ -265,16 +262,19 @@ class MypagesController extends BcPluginAppController {
       $user['Mypage']['password_confirm'] = $password;
       $this->Mypage->set($user);
       if (!$this->Mypage->save()) {
-        $this->Session->setFlash('新しいパスワードをデータベースに保存できませんでした。');
+        //$this->Session->setFlash('新しいパスワードをデータベースに保存できませんでした。');
+        $this->setMessage('新しいパスワードをデータベースに保存できませんでした。', true);
         return;
       }
       $body['siteUrl'] = Configure::read('BcEnv.siteUrl');
       $body['body'] = $email . ' の新しいパスワードは、 ' . $password . ' です。';
       if (!$this->sendMail($email, 'パスワードを変更しました', $body, array('template'=>'Members.reset_password'))) {
-        $this->Session->setFlash('メール送信時にエラーが発生しました。');
+        //$this->Session->setFlash('メール送信時にエラーが発生しました。');
+        $this->setMessage('メール送信時にエラーが発生しました。', true);
         return;
       }
-      $this->Session->setFlash($email . ' 宛に新しいパスワードを送信しました。');
+      //$this->Session->setFlash($email . ' 宛に新しいパスワードを送信しました。');
+      $this->setMessage($email . ' 宛に新しいパスワードを送信しました。', true);
       $this->Mylog->record($user['Mypage']['id'], 'reset password');
       $this->request->data = array();
     }

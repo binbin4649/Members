@@ -1,15 +1,10 @@
 <?php 
-App::uses('BcPluginAppController', 'Controller');
 
-class MyblogsController extends BcPluginAppController {
+class MyblogsController extends MembersAppController {
   
   public $name = 'Myblogs';
 
   public $uses = array('Plugin', 'Members.Myblog');
-
-  public $helpers = array('BcPage', 'BcHtml', 'BcTime', 'BcForm');  
-
-  public $components = array('Auth', 'Cookie', 'BcEmail');
   
   public $subMenuElements = array('');
 

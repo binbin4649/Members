@@ -12,7 +12,7 @@
  * @license			http://basercms.net/license/index.html
  */
 ?>
-
+<?php echo $this->Session->flash(); ?>
 <div class="baser-form baser-form-input">
 <div class="section">
 	<p>パスワードを忘れた方は、登録されているメールアドレスを送信してください。<br />
