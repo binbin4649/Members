@@ -12,6 +12,7 @@
  * @license			http://basercms.net/license/index.html
  */
 ?>
+<?php $this->BcBaser->css(array('Members.members'), array('inline' => false)); ?>
 <?php echo $this->Session->flash(); ?>
 <div class="baser-form baser-form-input">
 <div class="section">

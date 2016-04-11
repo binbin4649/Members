@@ -1,3 +1,4 @@
+<?php $this->BcBaser->css(array('Members.members'), array('inline' => false)); ?>
 <?php echo $this->Session->flash(); ?>
 
 <?php if($myblogs): ?>

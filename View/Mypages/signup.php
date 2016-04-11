@@ -1,3 +1,4 @@
+<?php $this->BcBaser->css(array('Members.members'), array('inline' => false)); ?>
 <div class="baser-form baser-form-input">
 <?php
 if ($this->Session->check('Message.auth')) {

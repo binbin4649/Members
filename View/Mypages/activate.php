@@ -1,3 +1,4 @@
+<?php $this->BcBaser->css(array('Members.members'), array('inline' => false)); ?>
 <div class="section">
 <?php echo $this->Session->flash(); ?>
 <p><small>本登録できなかった場合は、改めて新規登録からおねがいします。</small></p>
