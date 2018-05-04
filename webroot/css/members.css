@@ -1,23 +1,41 @@
-/* flashMessage
+/* Login form
 ----------------------------------------------- */
 
-#authMessage,
-#flashMessage,
-#AlertMessage,
-#UpdateMessage {
-	padding:10px 10px 10px 36px;
-	margin:20px 0;
-	font-weight:bold;
-	font-size:16px;
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
-.notice-message {
-	color:#669900;
-	border:5px solid #669900;
-	background: url(../../img/admin/icn_info.png) no-repeat 10px 13px;
+.form-label {
+	margin-bottom: 0;
 }
-.alert-message {
-	color:#F03;
-	background: url(../../img/admin/icn_warning.png) no-repeat 10px 13px;
-	border:5px solid #E02;
+
+.form-description {
+	font-size: 80%;
+    font-weight: 400;
 }

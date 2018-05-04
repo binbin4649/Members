@@ -1,5 +1,4 @@
 <?php $this->BcBaser->css(array('Members.members'), array('inline' => false)); ?>
-<div class="baser-form baser-form-input">
 <?php
 if ($this->Session->check('Message.auth')) {
 	$this->Session->flash('auth');
@@ -7,39 +6,27 @@ if ($this->Session->check('Message.auth')) {
 ?>
 <?php $this->BcBaser->flash() ?>
 <div id="AlertMessage" class="message" style="display:none"></div>
-<?php echo $this->BcForm->create('Mypage', array('action' => 'signup', 'url' => array(), 'class' => 'form-horizontal')) ?>
 
-<div class="form-group">
-<div class="col-sm-3 control-label"><?php echo $this->BcForm->label('Mypage.username', 'メールアドレス') ?></div>
-<div class="col-sm-9">
-	<div class="control-body">
-		<?php echo $this->BcForm->input('Mypage.username', array('type' => 'email', 'size' => 16, 'tabindex' => 1, 'maxlength' => '255', 'class' => 'form-control form-control-md')) ?>
-		<?php echo $this->BcForm->error('Mypage.username') ?>
-	</div>
+<div class="my-3">
+	<h1 class="h3 mb-4 font-weight-normal border-bottom">Singup</h1>
+	<?php echo $this->BcForm->create('Mypage', array('class' => 'form-signin', 'url' => 'signup')) ?>
+	  <?php echo $this->BcForm->label('Mypage.username', 'メールアドレス', array('class'=>'form-label')) ?>
+	  <?php echo $this->BcForm->input('Mypage.username', array('type' => 'email', 'class' => 'form-control', 'placeholder' => 'Email address', 'value' => $Mypage['username'])) ?>
+	  <?php echo $this->BcForm->error('Mypage.username') ?>
+	  
+	  <?php echo $this->BcForm->label('Mypage.password', 'パスワード', array('class'=>'mt-3 form-label')) ?>
+	  <?php echo $this->BcForm->input('Mypage.password', array('type' => 'password', 'class' => 'form-control', 'placeholder' => 'Password', 'value' => $Mypage['password'])) ?>
+	  <?php echo $this->BcForm->input('Mypage.password_confirm', array('type' => 'password', 'class' => 'form-control', 'placeholder' => 'Retype password', 'value' => $Mypage['password_confirm'])) ?>
+	  <?php echo $this->BcForm->error('Mypage.password') ?>
+	  <div class="form-description">半角英数、6文字以上。<br>確認の為、2回入力してください。</div>
+	  <div class="form-inline my-3">
+		  <?php echo $this->BcForm->input('Mypage.user_policy', array('type' => 'checkbox', 'class' => 'form-control mr-2')) ?>
+		  <label><?php $this->bcBaser->link('利用規約', 'user_policy') ?>に同意します。</label>
+	  </div>
+	  <?php echo $this->BcForm->submit('会員登録', array('div' => false, 'class' => 'btn btn-lg btn-primary btn-block mt-4')) ?>
+	<?php echo $this->BcForm->end() ?>
 </div>
-</div>
-<div class="form-group">
-<div class="col-sm-3 control-label"><?php echo $this->BcForm->label('Mypage.password', 'パスワード') ?></div>
-<div class="col-sm-9">
-	<div class="control-body">
-		<small>確認の為、2回入力してください。</small><br>
-		<?php echo $this->BcForm->input('Mypage.password', array('type' => 'password', 'size' => 16, 'tabindex' => 2, 'maxlength' => '20', 'placeholder' => '最低6文字', 'class' => 'form-control form-control-md')) ?><br>
-		<?php echo $this->BcForm->input('Mypage.password_confirm', array('type' => 'password', 'size' => 16, 'tabindex' => 3, 'maxlength' => '20', 'class' => 'form-control form-control-md')) ?>
-		<small>【確認】</small>
-		<?php echo $this->BcForm->error('Mypage.password') ?>
-	</div>
-</div>
-</div>
-
-
-<div class="submit">
-<?php echo $this->BcForm->submit('新規登録', array('div' => false, 'class' => 'btn btn-lg btn-primary form-submit', 'id' => 'BtnLogin', 'tabindex' => 4)) ?>
-</div>
-<?php echo $this->BcForm->end() ?>
-<div class="section">
-<p>「<?php echo $email; ?>」から、仮登録完了のメールが送信されます。<br>
+<p class="pt-3">「<?php echo $email; ?>」から、仮登録完了のメールが送信されます。<br>
 ※もし届いていない場合は、迷惑メールフィルターなどを確認し、再登録して下さい。<br>
 メール本文にあるURLをクリックすると、本登録となりログインできるようになります。
 </p>
-</div>
-</div>

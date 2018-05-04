@@ -14,15 +14,14 @@
 ?>
 <?php $this->BcBaser->css(array('Members.members'), array('inline' => false)); ?>
 <?php echo $this->Session->flash(); ?>
-<div class="baser-form baser-form-input">
-<div class="section">
-	<p>パスワードを忘れた方は、登録されているメールアドレスを送信してください。<br />
-		新しいパスワードをメールでお知らせします。</p>
-		<?php echo $this->BcForm->create('Mypage', array('action' => 'reset_password')) ?>
-	<div class="submit">
-		<?php echo $this->BcForm->input('Mypage' . '.email', array('type' => 'text', 'size' => 30)) ?>
-		<?php echo $this->BcForm->submit('送信', array('div' => false, 'class' => 'btn btn-lg btn-primary form-submit')) ?>
-	</div>
+
+<div class="my-3">
+	<h1 class="h3 mb-3 font-weight-normal border-bottom">Reset Password</h1>
+	<?php echo $this->BcForm->create('Mypage', array('class' => 'form-signin', 'url' => 'reset_password')) ?>
+	  <label for="inputEmail" class="sr-only">メールアドレス</label>
+	  <?php echo $this->BcForm->input('Mypage.email', array('type' => 'email', 'class' => 'form-control', 'placeholder' => 'Email address')) ?>
+	  <?php echo $this->BcForm->submit('送信', array('div' => false, 'class' => 'btn btn-lg btn-primary btn-block')) ?>
 	<?php echo $this->BcForm->end() ?>
 </div>
-</div>
+<p>パスワードを忘れた方は、登録されているメールアドレスを送信してください。<br />
+新しいパスワードをメールでお知らせします。</p>

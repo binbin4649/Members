@@ -30,8 +30,8 @@ class Mypage extends BcPluginAppModel {
                 'message' => 'パスワードが一致しません。'),
         ),
         'email' => array(
-            'notEmpty' => array(
-                'rule' => array('notEmpty'),
+            'notBlank' => array(
+                'rule' => array('notBlank'),
                 'message' => 'Eメールを入力して下さい。'),
             'email' => array(
                 'rule' => array('email', true),
@@ -45,8 +45,8 @@ class Mypage extends BcPluginAppModel {
                 'message' => 'このメールアドレスは既に登録されています。')
         ),
         'name' => array(
-            'notEmpty' => array(
-                'rule' => array('notEmpty'),
+            'notBlank' => array(
+                'rule' => array('notBlank'),
                 'message' => '名前を入力して下さい。'),
             'maxLength' => array(
                 'rule' => array('maxLength', 255),
@@ -58,23 +58,6 @@ class Mypage extends BcPluginAppModel {
         if (isset($this->data['Mypage']['password'])) {
             $passwordHasher = new SimplePasswordHasher();
             $this->data['Mypage']['password'] = $passwordHasher->hash($this->data['Mypage']['password']);
-        }
-        //nameを使わず、name_1_2に分ける場合、合体させる
-        if (isset($this->data['Mypage']['name_1'])) {
-            if(isset($this->data['Mypage']['name_2'])){
-                $this->data['Mypage']['name'] = $this->data['Mypage']['name_1'].' '.$this->data['Mypage']['name_2'];
-            }else{
-                $this->data['Mypage']['name'] = $this->data['Mypage']['name_1'];
-            }
-        }
-        //telを使わず、tel_1_2_3に分ける場合、合体させる
-        if(isset($this->data['Mypage']['tel_1'])){
-            $tel = $this->data['Mypage']['tel_1'].$this->data['Mypage']['tel_2'].$this->data['Mypage']['tel_3'];
-            $tel = mb_convert_kana($tel, "n");
-            $tel = mb_ereg_replace('[^0-9]', '', $tel);
-            if(!empty($tel)){
-                $this->data['Mypage']['tel'] = $tel;
-            }    
         }
         return true;
     }    
@@ -109,5 +92,6 @@ class Mypage extends BcPluginAppModel {
         if($mypages) $this->delete($mypages['Mypage']['id']);
         return true;
     }
+    
 
 }

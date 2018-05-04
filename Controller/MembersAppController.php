@@ -2,13 +2,6 @@
 /*
 * Membersプラグイン
 * 基底コントローラー
-*
-* PHP 5.6.x
-*
-* @copyright    Hideichi Saito
-* @link         https://github.com/binbin4649/BaserCMS-Plugin-Members/
-* @package      BaserCMS-Plugin-Members
-* @since        ver.0.0.2
 */
 
 /**
@@ -23,12 +16,14 @@ App::uses('BcPluginAppController', 'Controller');
 */
 class MembersAppController extends BcPluginAppController {
 
-	public $helpers = array('BcPage', 'BcHtml', 'BcTime', 'BcForm');  
-
-  	public $components = array('Auth', 'Cookie', 'BcEmail');
-
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->set('user', $this->Auth->user());
+		$this->set('user', $this->BcAuth->user());
+		
+		// サブサイト用の設定値なのかな？ない時はとりあえず0を入れておく。
+		//サブサイト用の設定だとしたらMembersプラグインはサブサイトに対応してない。ということになるんだと思う。
+		if(empty($this->request->params['Content'])) {
+			$this->request->params['Site']['id'] = 0;
+		}
 	}
 }
