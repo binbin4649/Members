@@ -6,7 +6,7 @@ if ($this->Session->check('Message.auth')) {
 ?>
 <?php $this->BcBaser->flash() ?>
 <div id="AlertMessage" class="message" style="display:none"></div>
-<h1 class="h5 border-bottom py-3 mb-5 text-secondary"><?php echo $this->pageTitle ?></h1>
+<h1 class="h5 border-bottom py-3 mb-4 mb-md-5 text-secondary"><?php echo $this->pageTitle ?></h1>
 
 <?php echo $this->BcForm->create('Mypage', array('url' => 'edit', 'class' => 'form-group')) ?>
 <div class="row mb-3">
@@ -97,9 +97,11 @@ if ($this->Session->check('Message.auth')) {
 		<div class="col-md-4 text-md-right">
 			<?php echo $this->BcForm->label('Mypage.magiclink', 'マジックリンク') ?>
 		</div>
-		<div class="col-md-8 form-inline">
-			<?php echo $this->BcForm->input('Mypage.magiclink', array('type'=>'checkbox', 'class' => 'form-control')) ?>
-			<label class="ml-2">無効にする。</label>
+		<div class="col-md-8">
+			<div class="form-check form-check-inline">
+				<?php echo $this->BcForm->input('Mypage.magiclink', array('type'=>'checkbox', 'class' => 'form-check-input')) ?>
+				<label class="form-check-label ml-2" for="MypageMagiclink">無効にする。</label>
+			</div>
 		</div>
 	</div>
 <?php endif; ?>
@@ -125,6 +127,6 @@ if ($this->Session->check('Message.auth')) {
 	</div>
 </div>
 <div class="text-center my-3 pt-3">
-	<?php echo $this->BcForm->submit('送信', array('div' => false, 'class' => 'btn btn-lg btn-primary', 'id' => 'BtnLogin')) ?>
+	<?php echo $this->BcForm->submit('送信', array('div' => false, 'class' => 'btn btn-lg btn-primary btn-e', 'id' => 'BtnLogin')) ?>
 </div>
 <?php echo $this->BcForm->end() ?>

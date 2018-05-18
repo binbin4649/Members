@@ -7,8 +7,8 @@ if ($this->Session->check('Message.auth')) {
 <?php $this->BcBaser->flash() ?>
 <div id="AlertMessage" class="message" style="display:none"></div>
 
-<div class="my-3">
-	<h1 class="h3 mb-4 font-weight-normal border-bottom">Singup</h1>
+<h1 class="h5 border-bottom py-3 mb-4 mb-md-5 text-secondary">会員登録</h1>
+<div class="my-1 my-sm-3">
 	<?php echo $this->BcForm->create('Mypage', array('class' => 'form-signin', 'url' => 'signup')) ?>
 	  <?php echo $this->BcForm->label('Mypage.username', 'メールアドレス', array('class'=>'form-label')) ?>
 	  <?php echo $this->BcForm->input('Mypage.username', array('type' => 'email', 'class' => 'form-control', 'placeholder' => 'Email address', 'value' => $Mypage['username'])) ?>
@@ -19,11 +19,13 @@ if ($this->Session->check('Message.auth')) {
 	  <?php echo $this->BcForm->input('Mypage.password_confirm', array('type' => 'password', 'class' => 'form-control', 'placeholder' => 'Retype password', 'value' => $Mypage['password_confirm'])) ?>
 	  <?php echo $this->BcForm->error('Mypage.password') ?>
 	  <div class="form-description">半角英数、6文字以上。<br>確認の為、2回入力してください。</div>
-	  <div class="form-inline my-3">
-		  <?php echo $this->BcForm->input('Mypage.user_policy', array('type' => 'checkbox', 'class' => 'form-control mr-2')) ?>
-		  <label><?php $this->bcBaser->link('利用規約', 'user_policy') ?>に同意します。</label>
+	  
+	  <div class="form-check form-check-inline my-3">
+		  <?php echo $this->BcForm->input('Mypage.user_policy', array('type' => 'checkbox', 'class' => 'form-check-input mr-3')) ?>
+		  <label class="form-check-label"><?php $this->bcBaser->link('利用規約', '/user_policy') ?>に同意します。</label>
 	  </div>
-	  <?php echo $this->BcForm->submit('会員登録', array('div' => false, 'class' => 'btn btn-lg btn-primary btn-block mt-4')) ?>
+	  
+	  <?php echo $this->BcForm->submit('会員登録', array('div' => false, 'class' => 'btn btn-lg btn-primary btn-block mt-4 btn-e')) ?>
 	<?php echo $this->BcForm->end() ?>
 </div>
 <p class="pt-3">「<?php echo $email; ?>」から、仮登録完了のメールが送信されます。<br>

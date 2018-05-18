@@ -3,7 +3,8 @@
 class MembersViewEventListener extends BcViewEventListener {
 
 	public $events = array(
-		'header'
+		'header',
+		//'Mail.Mail.beforeElement'
 		);
 	
 	public function Header(CakeEvent $event) {
@@ -14,4 +15,15 @@ class MembersViewEventListener extends BcViewEventListener {
 	        $event->data = str_replace('ログイン', 'マイページ', $event->data);
         }
 	}
+	
+/*
+	public function mailMailBeforeElement(CakeEvent $event){
+		//var_dump($event->subject()->MailField->data);
+		var_dump($event->subject()->MailField);
+		//var_dump($event->viewVars);
+		//var_dump($event->data);
+		die;
+		
+	}
+*/
 }

@@ -38,10 +38,10 @@ https://github.com/baserproject/basercms
 
 
   - ログイン  
-  http://xxx.xxx/members/Mypages/login
+  http://xxx.xxx/members/mypages/login
 
   - 新規登録  
-  http://xxx.xxx/members/Mypages/signup
+  http://xxx.xxx/members/mypages/signup
 
   - 管理画面  
   システムナビ -> Membersプラグイン

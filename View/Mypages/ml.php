@@ -14,13 +14,12 @@
     }
 </script>
 
+<h1 class="h5 border-bottom py-3 mb-4 mb-md-5 text-secondary">マジックリンク</h1>
 <div class="my-3">
-	<h1 class="h3 mb-4 font-weight-normal border-bottom">Magic Link Login</h1>
-	
 	<div class="container">
 	    <div class="form-group row mt-3">
 	        <input class="border rounded text-secondary form-control-plaintext col-10" id="copyTarget" type="text" value="<?php echo $magic_link ?>" readonly>
-	        <button type="button" class="btn btn-secondary col" onclick="copyToClipboard()" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard.">
+	        <button type="button" class="btn btn-secondary col btn-e" onclick="copyToClipboard()" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard.">
 	            <i class="fas fa-clipboard"></i>
 	        </button>
 	    </div>

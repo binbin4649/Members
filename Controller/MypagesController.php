@@ -96,8 +96,15 @@ class MypagesController extends MembersAppController {
   
   // フロント画面用のデフォルトアクション
   public function index() {
-    $user = $this->BcAuth->user();
-    $this->pageTitle = 'Mypage Top : '.$user['name'];
+    $this->pageTitle = 'マイページトップ';
+    // Pointプラグインが入っているか確認
+    $Point = $this->Plugin->findByName('Point');
+    if(empty($Point)){
+	    $pointPlugin = false;
+    }else{
+	    $pointPlugin = true;
+    }
+    $this->set('pointPlugin', $pointPlugin);
   }
 
   public function edit($editpass = null){
@@ -172,6 +179,7 @@ class MypagesController extends MembersAppController {
 			$key = Configure::read('Security.salt');
 			$this->Mypage->id = $user['id'];
 			$url_pass = $this->Mypage->getActivationHash();
+			$this->Mylog->record($user['id'], 'edit pass');
 			$this->setMessage('パスワード認証しました。ユーザー編集できます。');
 			$this->redirect(array( 'controller' => 'mypages', 'action' => 'edit/'.$url_pass));
 		}else{
@@ -196,7 +204,7 @@ class MypagesController extends MembersAppController {
         $user = $this->BcAuth->user();
         $this->setMessage("ようこそ、" . $user['name'] . "　さん。");
         $this->Mylog->record($user['id'], 'login');  
-        $this->redirect(array( 'controller' => 'Mypages', 'action' => 'index'));
+        $this->redirect(array( 'controller' => 'mypages', 'action' => 'index'));
       }else{
         //ログイン失敗したときの処理
         $user = $this->Mypage->findByUsername($this->request->data['Mypage']['username']);
@@ -345,13 +353,6 @@ class MypagesController extends MembersAppController {
 	$this->set('user', $user);
   }
   
-  public function user_policy(){
-	  $this->pageTitle = '利用規約';
-	  $this->crumbs = array(
-	    array('name' => '会員登録', 'url' => array('controller' => 'mypages', 'action' => 'signup')),
-	  );
-  }
-  
   public function magiclink_pass(){
 	$this->pageTitle = 'マジックリンク（簡易ログイン）';
 	$user = $this->BcAuth->user();
@@ -366,6 +367,7 @@ class MypagesController extends MembersAppController {
 			//マジックリンクをアクティブにする
 			$this->Mypage->id = $user['id'];
 			$this->Mypage->saveField('magiclink', 'active');
+			$this->Mylog->record($user['id'], 'magiclink active');
 			$this->setMessage('マジックリンクを有効にしました。');
 			$this->redirect(array( 'controller' => 'mypages', 'action' => 'ml/'.$user['id'].'/'.$url_pass));
 		}else{
@@ -410,12 +412,21 @@ class MypagesController extends MembersAppController {
 	$this->set('magic_link', $magic_link);
   }
 
+  	public function userlog(){
+	  	$this->pageTitle = 'ユーザーログ';
+	  	$user = $this->BcAuth->user();
+		$this->paginate = array(
+			'conditions' => array('Mylog.mypage_id'=>$user['id']),
+			'order' => 'Mylog.created DESC',
+			'limit' => 30
+		);
+		$mylog = $this->paginate('Mylog');
+		$this->set('mylog', $mylog);
+	}
 
 
 
 }
-
-
 
 
 
