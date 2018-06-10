@@ -5,7 +5,7 @@ class MembersViewEventListener extends BcViewEventListener {
 	public $events = array(
 		'header',
 		//'Mail.Mail.beforeElement'
-		);
+	);
 	
 	public function Header(CakeEvent $event) {
 		App::uses('BcAuthComponent',  'Controller/Component');

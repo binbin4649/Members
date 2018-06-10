@@ -1,11 +1,11 @@
 <!-- form -->
-<?php echo $this->BcForm->create('Mypage') ?>
+<?php echo $this->BcForm->create('Mypage', ['url'=>'edit/'.$this->request->data['Mypage']['id']]) ?>
 <div class="section">
 	<table cellpadding="0" cellspacing="0" class="form-table">
 		<tr>
 			<th class="col-head"><?php echo $this->BcForm->label('Mypage.id', '会員番号') ?></th>
 			<td class="col-input">
-				<?php echo $mypage['Mypage']['id']; ?>
+				<?php echo $this->request->data['Mypage']['id']; ?>
 				<?php echo $this->BcForm->input('Mypage.id', array('type' => 'hidden')) ?>
 			</td>
 		</tr>
@@ -13,19 +13,19 @@
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.name', '名前') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.name', array('type'=>'text', 'value'=>$mypage['Mypage']['name'])) ?>
+			<?php echo $this->BcForm->input('Mypage.name', array('type'=>'text')) ?>
 			<?php echo $this->BcForm->error('Mypage.name') ?></td>
 		</tr>
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.username', 'ログインID') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.username', array('type'=>'text', 'value'=>$mypage['Mypage']['username'])) ?>
+			<?php echo $this->BcForm->input('Mypage.username', array('type'=>'text')) ?>
 			<?php echo $this->BcForm->error('Mypage.username') ?></td>
 		</tr>
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.sex', '性別') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.sex', array('type'=>'radio', 'value'=>$mypage['Mypage']['sex'],
+			<?php echo $this->BcForm->input('Mypage.sex', array('type'=>'radio',
 				'options'=>array('male'=>'男性','female'=>'女性', 'unknown'=>'不明', 'unapplicable'=>'適用外')
 				)) 
 			?>
@@ -34,78 +34,78 @@
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.age', '生年月日') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.age', array('type'=>'text', 'value'=>$mypage['Mypage']['age'])) ?>
+			<?php echo $this->BcForm->input('Mypage.age', array('type'=>'text')) ?>
 			<?php echo $this->BcForm->error('Mypage.age') ?></td>
 		</tr>
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.job', '職業') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.job', array('type'=>'text', 'value'=>$mypage['Mypage']['job'])) ?>
+			<?php echo $this->BcForm->input('Mypage.job', array('type'=>'text')) ?>
 			<?php echo $this->BcForm->error('Mypage.job') ?></td>
 		</tr>
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.tel', '電話番号') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.tel', array('type'=>'text', 'value'=>$mypage['Mypage']['tel'])) ?>
+			<?php echo $this->BcForm->input('Mypage.tel', array('type'=>'text')) ?>
 			<?php echo $this->BcForm->error('Mypage.tel') ?></td>
 		</tr>
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.zip', '郵便番号') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.zip', array('type'=>'text', 'value'=>$mypage['Mypage']['zip'])) ?>
+			<?php echo $this->BcForm->input('Mypage.zip', array('type'=>'text')) ?>
 			<?php echo $this->BcForm->error('Mypage.zip') ?></td>
 		</tr>
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.address_1', '住所1') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.address_1', array('type'=>'text', 'value'=>$mypage['Mypage']['address_1'])) ?>
+			<?php echo $this->BcForm->input('Mypage.address_1', array('type'=>'text')) ?>
 			<?php echo $this->BcForm->error('Mypage.address_1') ?></td>
 		</tr>
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.address_2', '住所2') ?></th>
 			<td class="col-input">
-			<?php echo $this->BcForm->input('Mypage.address_2', array('type'=>'text', 'value'=>$mypage['Mypage']['address_2'])) ?>
+			<?php echo $this->BcForm->input('Mypage.address_2', array('type'=>'text')) ?>
 			<?php echo $this->BcForm->error('Mypage.address_2') ?></td>
 		</tr>
 		<tr>
 			<th class="col-head"><?php echo $this->BcForm->label('Mypage.email', 'EMail') ?>&nbsp;<span class="required">*</span></th>
 			<td class="col-input">
-				<?php echo $this->BcForm->input('Mypage.email', array('type' => 'text', 'value'=>$mypage['Mypage']['email'])) ?>
+				<?php echo $this->BcForm->input('Mypage.email', array('type' => 'text')) ?>
 				<?php echo $this->BcForm->error('Mypage.email') ?>
 			</td>
 		</tr>
 		<tr>
 			<th class="col-head"><?php echo $this->BcForm->label('Mypage.myadmin', '管理者') ?></th>
 			<td class="col-input">
-				<?php echo $this->BcForm->input('Mypage.myadmin', array('type'=>'radio', 'options'=>array('admin'=>'管理者', 'user'=>'非管理者'), 'value'=>$mypage['Mypage']['myadmin'])) ?>
+				<?php echo $this->BcForm->input('Mypage.myadmin', array('type'=>'radio', 'options'=>array('admin'=>'管理者', 'user'=>'非管理者'))) ?>
 				<?php echo $this->BcForm->error('Mypage.myadmin') ?>
 			</td>
 		</tr>
 		<tr>
 			<th class="col-head"><?php echo $this->BcForm->label('Mypage.myadmin_id', '管理者ID') ?></th>
 			<td class="col-input">
-				<?php echo $this->BcForm->input('Mypage.myadmin_id', array('type' => 'text', 'value'=>$mypage['Mypage']['myadmin_id'])) ?>
+				<?php echo $this->BcForm->input('Mypage.myadmin_id', array('type' => 'text')) ?>
 				<?php echo $this->BcForm->error('Mypage.myadmin_id') ?>
 			</td>
 		</tr>
 		<tr>
 			<th class="col-head"><?php echo $this->BcForm->label('Mypage.magiclink', '簡易ログイン') ?></th>
 			<td class="col-input">
-				<?php echo $this->BcForm->input('Mypage.magiclink', array('type'=>'radio', 'options'=>array('invalid'=>'無効', 'available'=>'有効'), 'value'=>$mypage['Mypage']['magiclink'])) ?>
+				<?php echo $this->BcForm->input('Mypage.magiclink', array('type'=>'radio', 'options'=>array('invalid'=>'無効', 'available'=>'有効'))) ?>
 				<?php echo $this->BcForm->error('Mypage.magiclink') ?>
 			</td>
 		</tr>
 		<tr>
 			<th class="col-head"><?php echo $this->BcForm->label('Mypage.editpass', '編集パスワード') ?></th>
 			<td class="col-input">
-				<?php echo $this->BcForm->input('Mypage.editpass', array('type'=>'radio', 'options'=>array('invalid'=>'無効', 'available'=>'有効'), 'value'=>$mypage['Mypage']['editpass'])) ?>
+				<?php echo $this->BcForm->input('Mypage.editpass', array('type'=>'radio', 'options'=>array('invalid'=>'無効', 'available'=>'有効'))) ?>
 				<?php echo $this->BcForm->error('Mypage.editpass') ?>
 			</td>
 		</tr>
 		<tr>
 			<th class="col-head"><?php echo $this->BcForm->label('Mypage.status', 'アカウント状態') ?></th>
 			<td class="col-input">
-				<?php echo $this->BcForm->input('Mypage.status', array('type'=>'radio', 'options'=>array('0'=>'有効', '1'=>'無効', '2'=>'退会'), 'value'=>$mypage['Mypage']['status'])) ?>
+				<?php echo $this->BcForm->input('Mypage.status', array('type'=>'radio', 'options'=>array('0'=>'有効', '1'=>'無効', '2'=>'退会'))) ?>
 				<?php echo $this->BcForm->error('Mypage.status') ?>
 			</td>
 		</tr>

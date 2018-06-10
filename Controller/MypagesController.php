@@ -19,7 +19,7 @@ class MypagesController extends MembersAppController {
   public function beforeFilter() {
     parent::beforeFilter();
   
-    $this->BcAuth->allow('login', 'signup', 'activate', 'reset_password', 'user_policy', 'ml');
+    $this->BcAuth->allow('login', 'signup', 'activate', 'reset_password', 'user_policy', 'ml', 'thanks');
     $this->BcAuth->authenticate = array(
         'Form' => array(
             'userModel' => 'Members.Mypage',
@@ -61,27 +61,24 @@ class MypagesController extends MembersAppController {
       $this->setMessage('無効なIDです。', true);
       $this->redirect(array('action' => 'index'));
     }
-    $mypage = $this->Mypage->findById($id);
-    if (empty($mypage)) {
-      $this->setMessage('無効なIDです。', true);
-      $this->redirect(array('action' => 'index'));
-    }
     $user = $this->BcAuth->user();
-    if ($this->request->is('post')){
+	if(empty($this->request->data)){
+		$mypage = $this->Mypage->findById($id);
+	}else{
       if(empty($this->request->data['Mypage']['password'])){
         unset($this->request->data['Mypage']['password']);
       }
-      $this->request->data['Mypage']['username'] = $this->request->data['Mypage']['email'];
-      $this->request->data['Mypage']['id'] = $id;
+      unset($this->Mypage->validate['username']);//ログインIDのバリデート外す。メールアドレス以外の入力も受付る。
+      unset($this->Mypage->validate['email']);
       if( $this->Mypage->save($this->request->data)){
         $this->Mylog->record($id, 'edit', $user['id'], $user);
         $this->setMessage( '編集しました');
         $this->redirect(array('action' => 'index'));
       }else{
+	    $mypage = $this->Mypage->findById($id);
         $this->setMessage('エラー', true);
       }
     }
-
     $this->paginate = array(
       'conditions' => array('Mylog.mypage_id'=>$id),
       'order' => 'Mylog.created DESC',
@@ -89,9 +86,9 @@ class MypagesController extends MembersAppController {
     );
     $mylog = $this->paginate('Mylog');
     $this->set('mylog', $mylog);
-    
     $this->pageTitle = 'Members 編集';
-    $this->set('mypage', $mypage);
+    unset($mypage['Mypage']['password']);
+    $this->request->data = $mypage;
   }
   
   // フロント画面用のデフォルトアクション
@@ -105,6 +102,15 @@ class MypagesController extends MembersAppController {
 	    $pointPlugin = true;
     }
     $this->set('pointPlugin', $pointPlugin);
+    
+    $user = $this->BcAuth->user();
+    $mylog = $this->Mylog->lastLog($user['id']);
+    $this->set('mylog', $mylog);
+    
+    //name がメールアドレスの場合はアラート出す。新規登録時はメールアドレスが入るため
+	if(filter_var($user['name'], FILTER_VALIDATE_EMAIL)){
+		$this->setMessage('ユーザー編集から、ユーザー名を修正してください。', true);
+	}
   }
 
   public function edit($editpass = null){
@@ -135,7 +141,7 @@ class MypagesController extends MembersAppController {
           $user = $this->Mypage->findById($user['id']);
           $this->Session->write('BcAuth', $user['Mypage']);
           $this->BcAuth->login($user['Mypage']);
-          $this->redirect(array( 'controller' => 'Mypages', 'action' => 'index'));
+          $this->redirect(array( 'controller' => 'mypages', 'action' => 'index'));
         }else{
           $this->setMessage('エラー', true);
         }
@@ -146,7 +152,7 @@ class MypagesController extends MembersAppController {
           $user = $this->Mypage->findById($user['id']);
           $this->Session->write('BcAuth', $user['Mypage']);
           $this->BcAuth->login($user['Mypage']);
-          $this->redirect(array( 'controller' => 'Mypages', 'action' => 'index'));
+          $this->redirect(array( 'controller' => 'mypages', 'action' => 'index'));
         }else{
           $this->setMessage('エラー', true);
         }
@@ -158,11 +164,11 @@ class MypagesController extends MembersAppController {
 			$url_pass = $this->Mypage->getActivationHash();
 			if($editpass != $url_pass){
 				$this->setMessage('不正なアクセス:pass faild.', true);
-				$this->redirect(array( 'controller' => 'Mypages', 'action' => 'index'));
+				$this->redirect(array( 'controller' => 'mypages', 'action' => 'index'));
 			}
 	    }else{
 		    // edit_pass が無かったらパスワード入力へリダイレクト
-		    $this->redirect(array( 'controller' => 'Mypages', 'action' => 'edit_pass'));
+		    $this->redirect(array( 'controller' => 'mypages', 'action' => 'edit_pass'));
 	    }
     }
     $this->pageTitle = 'ユーザー編集';
@@ -190,7 +196,7 @@ class MypagesController extends MembersAppController {
 
   }
 
-  public function login(){
+  public function login($username = null){
     if ($this->request->data) {
       if($this->BcAuth->login()){
         //ログイン成功したときの処理
@@ -203,7 +209,7 @@ class MypagesController extends MembersAppController {
         }
         $user = $this->BcAuth->user();
         $this->setMessage("ようこそ、" . $user['name'] . "　さん。");
-        $this->Mylog->record($user['id'], 'login');  
+        $this->Mylog->record($user['id'], 'login');
         $this->redirect(array( 'controller' => 'mypages', 'action' => 'index'));
       }else{
         //ログイン失敗したときの処理
@@ -221,12 +227,13 @@ class MypagesController extends MembersAppController {
       if($this->BcAuth->login()){
         $user = $this->BcAuth->user();
         $this->setMessage("ようこそ、" . $user['name'] . "　さん");
-        $this->Mylog->record($user['id'], 'login');  
-        $this->redirect(array( 'controller' => 'Mypages', 'action' => 'index'));
+        $this->Mylog->record($user['id'], 'login');
+        $this->redirect(array( 'controller' => 'mypages', 'action' => 'index'));
       }else{
         $this->Cookie->destroy('BcAuth.Members');
       }
     }
+    $this->request->data['Mypage']['username'] = $username;
     	/* 表示設定 */
   	$this->crumbs = array();
   	$this->subMenuElements = '';
@@ -239,7 +246,7 @@ class MypagesController extends MembersAppController {
     $this->BcAuth->logout();
     $this->setMessage('ログアウトしました');
     $this->Mylog->record($user['id'], 'logout');
-    $this->redirect(array( 'controller' => 'Mypages', 'action' => 'login'));
+    $this->redirect(array( 'controller' => 'mypages', 'action' => 'login'));
   }
 
   public function signup(){
@@ -254,6 +261,7 @@ class MypagesController extends MembersAppController {
 	        $this->request->data['Mypage']['email'] = $this->request->data['Mypage']['username'];
 	        $this->Mypage->Reregistration($this->request->data['Mypage']['email']); //未認証だったら一旦削除、再登録
 	        if( $this->Mypage->save($this->request->data)){
+		        $mypage_id = $this->Mypage->getLastInsertID();
 	            // ユーザアクティベート(本登録)用URLの作成
 	            $url = 
 	                DS . 'members' .
@@ -270,8 +278,9 @@ class MypagesController extends MembersAppController {
 	              $this->setMessage('メール送信時にエラーが発生しました。', true);
 	              return;
 	            }
-	            $this->setMessage( '仮登録成功。メール送信しました。');
+	            $this->setMessage( 'メールを送信しました。メール本文にあるリンクをタップすると本登録になります。');
 	            $this->Mylog->record($this->Mypage->id, 'signup');
+	            $this->redirect(array( 'controller' => 'mypages', 'action' => 'thanks/'.$mypage_id));
 	        } else {
 	            //  バリデーションエラーメッセージを渡す
 	            $this->setMessage('入力エラー', true);
@@ -284,6 +293,19 @@ class MypagesController extends MembersAppController {
     $this->set('email', $this->siteConfigs['email']);
     $this->set('Mypage', $Mypage);
   }
+  
+  
+  public function thanks($mypage_id = null){
+	  $this->pageTitle = '仮登録完了';
+	  if($mypage_id){
+		  $mypage = $this->Mypage->findById($mypage_id, ['Mypage.username', 'Mypage.created', 'Mypage.status']);
+		  //仮登録中だけ表示 status=1
+		  if($mypage['Mypage']['status'] != 1) $this->redirect(array( 'controller' => 'mypages', 'action' => 'index'));
+		  $this->set('mypage', $mypage);
+	  }
+	  $this->set('email', $this->siteConfigs['email']);
+  }
+
 
   public function activate( $mypage_id = null, $in_hash = null) {
       // UserモデルにIDをセット
@@ -294,7 +316,9 @@ class MypagesController extends MembersAppController {
           $this->Mypage->saveField( 'status', 0);
           $this->setMessage( '本登録完了。ログインしてください。');
           $this->Mylog->record($mypage_id, 'activate');
-          $this->redirect(array( 'controller' => 'Mypages', 'action' => 'login'));
+          $mypage = $this->Mypage->findById($mypage_id, ['Mypage.username']);
+          $username = rawurlencode($mypage['Mypage']['username']);
+          $this->redirect(array( 'controller' => 'mypages', 'action' => 'login/'.$username));
       }else{
       // 本登録に無効なURL
         $this->setMessage( 'エラー、または本登録済みです。');
@@ -342,12 +366,14 @@ class MypagesController extends MembersAppController {
 	if($this->request->data){
 		if (!empty($this->request->data['Mypage']['withdrawal'] == 'bin')) {
 			$this->Mypage->id = $user['id'];
-			$this->Mypage->saveField( 'status', 2);
+			$this->Mypage->saveField('status', 2);
+			$this->Mypage->saveField('username', $user['username'].date('Ymd'));//再入会できるようにする。
+			$this->Mypage->saveField('email', $user['email'].date('Ymd'));
 			$this->Cookie->destroy('BcAuth.Members');
 		    $this->BcAuth->logout();
-		    $this->setMessage('退会しました');
+		    $this->setMessage('退会しました。ご利用ありがとうございました。');
 		    $this->Mylog->record($user['id'], 'withdrawal');
-		    $this->redirect(array( 'controller' => 'Mypages', 'action' => 'login'));
+		    $this->redirect(array( 'controller' => 'mypages', 'action' => 'login'));
 		}
 	}	
 	$this->set('user', $user);

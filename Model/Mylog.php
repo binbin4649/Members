@@ -1,8 +1,8 @@
 <?php
-App::import('Model', 'BcPluginAppModel');
+App::import('Model', 'AppModel');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
-class Mylog extends BcPluginAppModel {
+class Mylog extends AppModel {
 
 	public $name = 'Mylog';
 	
@@ -12,7 +12,7 @@ class Mylog extends BcPluginAppModel {
 			'foreignKey' => 'mypage_id']
 	];
 	
-	// $user 変更する前のユーザーデータ
+	// 第4引数の$user = 変更する前のユーザーデータ
     public function record($mypage_id, $action, $user_id = null, $user = null){
         if(empty($mypage_id)) return false;
         if(empty($action)) return false;
@@ -31,6 +31,17 @@ class Mylog extends BcPluginAppModel {
         }else{
             return false;
         }
+    }
+    
+    //最後から2番めのログを返す。login だと今ログインしたログを返してしまうため
+    public function lastLog($mypage_id){
+	    $mylogs = $this->find('all', array(
+        	'conditions' => array('Mylog.mypage_id'=>$mypage_id),
+			'order' => array('Mylog.created DESC'),
+			'recursive' => -1,
+			'limit' => 2
+		));
+		return $mylogs[1];
     }
     
 

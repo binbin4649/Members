@@ -13,6 +13,14 @@
 				<span class="text-muted">お名前：</span><?php echo $user['name'] ?>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm">
+				<span class="text-muted">最終ログ：</span><?php echo $mylog['Mylog']['created'] ?>, <?php echo $mylog['Mylog']['action'] ?>
+			</div>
+			<div class="col-sm">
+				<span class="text-muted">
+			</div>
+		</div>
 	</div>
 	</small>
 	

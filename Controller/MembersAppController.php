@@ -7,14 +7,14 @@
 /**
 * Include files
 */
-App::uses('BcPluginAppController', 'Controller');
+App::uses('AppController', 'Controller');
 
 /**
 * 基底コントローラー
 *
 * 
 */
-class MembersAppController extends BcPluginAppController {
+class MembersAppController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();

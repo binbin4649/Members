@@ -1,8 +1,10 @@
 <?php
-App::import('Model', 'BcPluginAppModel');
+// Mypage.status [0=有効アクティベート済み, 1=無効未アクティベート, 2=退会]
+
+App::import('Model', 'AppModel');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
-class Mypage extends BcPluginAppModel {
+class Mypage extends AppModel {
 
 	public $name = 'Mypage';
 

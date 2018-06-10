@@ -26,37 +26,42 @@
 	</div>
 	<div class="border border-warning rounded p-4 mb-3">
 		<?php if($device == 'ios'): ?>
-			<p>アイコンをホーム画面に追加。<br>(iPhone:safari)</p>
+			<p><strong>アイコンをホーム画面に追加</strong><br>
+				<small>(iPhone:safari)</small>
+			</p>
 			<p>
 			<?php $this->BcBaser->img('Members.iphone_step1.png'); ?><br>
-			①このページを開いたまま、画面下にあるこのボタンをタップ。
+				<small>①このページを開いたまま、画面下にあるこのボタンをタップ。</small>
 			</p>
 			<p>
 			<?php $this->BcBaser->img('Members.iphone_step2.png'); ?><br>
-			②ホーム画面に追加をタップ。
+				<small>②ホーム画面に追加をタップ。</small>
 			</p>
 			<p>
 			<?php $this->BcBaser->img('Members.iphone_step3.png'); ?><br>
-			③画面上にある、追加をタップ
+				<small>③画面上にある、追加をタップ</small>
 			</p>
 			<p>これでホーム画面にアイコンが追加され、次回からアイコンをタップすることでログインできます。</p>
 		<?php elseif($device == 'android'): ?>
-			<p>アイコンをホーム画面に追加。<br>(Android:chrome)</p>
 			<p>
-			<?php $this->BcBaser->img('Members.android_step1.png'); ?><br>
-			①このページを開いたまま、メニューボタンをタップ、メニューを開く。メニューボタンが他にある機種もあります。	
-			</p>
-			<p>
-			<?php $this->BcBaser->img('Members.android_step2.png'); ?><br>
-			②ホーム画面に追加をタップ。	
-			</p>
-			<p>
-			<?php $this->BcBaser->img('Members.android_step3.png'); ?><br>
-			③追加をタップ。	
-			</p>
-			<p>これでホーム画面にアイコンが追加され、次回からアイコンをタップすることでログインできます。<br>
-				<small>機種・ブラウザなどによりやり方が異なる場合があります。</small>
-			</p>
+		<strong>アイコンをホーム画面に追加</strong><br>
+			<small>(Android:chrome)</small>
+		</p>
+		<p>
+		<?php $this->BcBaser->img('Members.android_step1.png'); ?><br>
+			<small>①このページを開いたまま、メニューボタンをタップ、メニューを開く。メニューボタンが他にある機種もあります。	</small>
+		</p>
+		<p>
+		<?php $this->BcBaser->img('Members.android_step2.png'); ?><br>
+			<small>②ホーム画面に追加をタップ。	</small>
+		</p>
+		<p>
+		<?php $this->BcBaser->img('Members.android_step3.png'); ?><br>
+			<small>③追加をタップ。</small>
+		</p>
+		<p>これでホーム画面にアイコンが追加され、次回からアイコンをタップすることでログインできます。<br>
+			<small>機種・ブラウザなどによりやり方が異なる場合があります。</small>
+		</p>
 		<?php else: ?>
 			このページのアドレスがマジックリンクになっています。<br>
 			このページを表示したまま「<strong>お気に入り</strong>」「<strong>ブックマーク</strong>」等に入れていただくと、次回からID・パスワードなしでログインできます。
