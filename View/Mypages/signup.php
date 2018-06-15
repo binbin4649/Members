@@ -28,7 +28,15 @@ if ($this->Session->check('Message.auth')) {
 	  <?php echo $this->BcForm->submit('会員登録', array('div' => false, 'class' => 'btn btn-lg btn-primary btn-block mt-4 btn-e')) ?>
 	<?php echo $this->BcForm->end() ?>
 </div>
-<p class="pt-3">「<?php echo $email; ?>」から、仮登録完了のメールが送信されます。<br>
-※もし届いていない場合は、迷惑メールフィルターなどを確認し、再登録して下さい。<br>
-メール本文にあるURLをクリックすると、本登録となりログインできるようになります。
-</p>
+<div class="border rounded bg-light p-3 mt-4"><small>
+登録されたメールアドレスは、次の目的以外には使用しません。
+<ul>
+	<li>当サービスへのログイン</li>
+	<li>当サービスからのお知らせ</li>
+</ul>
+<p>
+	「<?php echo $email; ?>」から、仮登録完了のメールが送信されます。<br>
+	※もし届いていない場合は、迷惑メールフィルターなどを確認し、再登録して下さい。<br>
+	メール本文にあるURLをクリックすると、本登録となりログインできるようになります。
+</p>	
+</small></div>

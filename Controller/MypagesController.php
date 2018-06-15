@@ -94,16 +94,19 @@ class MypagesController extends MembersAppController {
   // フロント画面用のデフォルトアクション
   public function index() {
     $this->pageTitle = 'マイページトップ';
+    $user = $this->BcAuth->user();
+    
     // Pointプラグインが入っているか確認
     $Point = $this->Plugin->findByName('Point');
     if(empty($Point)){
 	    $pointPlugin = false;
     }else{
-	    $pointPlugin = true;
+	    App::import('Model', 'Point.PointUser');
+	    $PointUser = new PointUser;
+	    $pointPlugin = $PointUser->findByMypageId($user['id'], null, null, 1);
     }
     $this->set('pointPlugin', $pointPlugin);
     
-    $user = $this->BcAuth->user();
     $mylog = $this->Mylog->lastLog($user['id']);
     $this->set('mylog', $mylog);
     
@@ -132,7 +135,7 @@ class MypagesController extends MembersAppController {
         if($this->Mypage->save($this->request->data)){
           $body['email'] = $this->request->data['Mypage']['email'];
           $body['name'] = $this->request->data['Mypage']['name'];
-          if (!$this->sendMail($body['email'], 'メールアドレスが変更されました。', $body, array('template'=>'Members.edit_mail'))) {
+          if (!$this->sendMail($body['email'], 'メールアドレスが変更されました。', $body, array('template'=>'Members.edit_mail', 'layout'=>'default'))) {
             $this->setMessage('メール送信時にエラーが発生しました。', true);
             return;
           }
@@ -273,7 +276,7 @@ class MypagesController extends MembersAppController {
 	            //  メール送信
 	            $body['url'] = $url;
 	            $email = $this->data['Mypage']['username'];
-	            if (!$this->sendMail($email, '仮登録しました。', $body, array('template'=>'Members.welcome_mail'))) {
+	            if (!$this->sendMail($email, '仮登録しました。', $body, array('template'=>'Members.welcome_mail', 'layout'=>'default'))) {
 	              $this->Mypage->delete($this->Mypage->id); //失敗したら登録したのを削除
 	              $this->setMessage('メール送信時にエラーが発生しました。', true);
 	              return;
@@ -349,7 +352,7 @@ class MypagesController extends MembersAppController {
       }
       $body['siteUrl'] = Configure::read('BcEnv.siteUrl');
       $body['body'] = $email . ' の新しいパスワードは、 ' . $password . ' です。';
-      if (!$this->sendMail($email, 'パスワードを変更しました', $body, array('template'=>'Members.reset_password'))) {
+      if (!$this->sendMail($email, 'パスワードを変更しました', $body, array('template'=>'Members.reset_password', 'layout'=>'default'))) {
         $this->setMessage('メール送信時にエラーが発生しました。', true);
         return;
       }
