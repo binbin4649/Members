@@ -31,15 +31,15 @@
 			</p>
 			<p>
 			<?php $this->BcBaser->img('Members.iphone_step1.png'); ?><br>
-				<small>①このページを開いたまま、画面下にあるこのボタンをタップ。</small>
+				<small>1) このページを開いたまま、画面下にあるこのボタンをタップ。</small>
 			</p>
 			<p>
 			<?php $this->BcBaser->img('Members.iphone_step2.png'); ?><br>
-				<small>②ホーム画面に追加をタップ。</small>
+				<small>2) ホーム画面に追加をタップ。</small>
 			</p>
 			<p>
 			<?php $this->BcBaser->img('Members.iphone_step3.png'); ?><br>
-				<small>③画面上にある、追加をタップ</small>
+				<small>3) 画面上にある、追加をタップ</small>
 			</p>
 			<p>これでホーム画面にアイコンが追加され、次回からアイコンをタップすることでログインできます。</p>
 		<?php elseif($device == 'android'): ?>
@@ -49,15 +49,15 @@
 		</p>
 		<p>
 		<?php $this->BcBaser->img('Members.android_step1.png'); ?><br>
-			<small>①このページを開いたまま、メニューボタンをタップ、メニューを開く。メニューボタンが他にある機種もあります。	</small>
+			<small>1) このページを開いたまま、メニューボタンをタップ、メニューを開く。メニューボタンが他にある機種もあります。	</small>
 		</p>
 		<p>
 		<?php $this->BcBaser->img('Members.android_step2.png'); ?><br>
-			<small>②ホーム画面に追加をタップ。	</small>
+			<small>2) ホーム画面に追加をタップ。	</small>
 		</p>
 		<p>
 		<?php $this->BcBaser->img('Members.android_step3.png'); ?><br>
-			<small>③追加をタップ。</small>
+			<small>3) 追加をタップ。</small>
 		</p>
 		<p>これでホーム画面にアイコンが追加され、次回からアイコンをタップすることでログインできます。<br>
 			<small>機種・ブラウザなどによりやり方が異なる場合があります。</small>
