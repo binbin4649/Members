@@ -30,15 +30,15 @@
 				<small>(iPhone:safari)</small>
 			</p>
 			<p>
-			<?php $this->BcBaser->img('Members.iphone_step1.png'); ?><br>
+			<?php $this->BcBaser->img('Members.iphone_step1.png', ['class'=>'img-fluid']); ?><br>
 				<small>1) このページを開いたまま、画面下にあるこのボタンをタップ。</small>
 			</p>
 			<p>
-			<?php $this->BcBaser->img('Members.iphone_step2.png'); ?><br>
+			<?php $this->BcBaser->img('Members.iphone_step2.png', ['class'=>'img-fluid']); ?><br>
 				<small>2) ホーム画面に追加をタップ。</small>
 			</p>
 			<p>
-			<?php $this->BcBaser->img('Members.iphone_step3.png'); ?><br>
+			<?php $this->BcBaser->img('Members.iphone_step3.png', ['class'=>'img-fluid']); ?><br>
 				<small>3) 画面上にある、追加をタップ</small>
 			</p>
 			<p>これでホーム画面にアイコンが追加され、次回からアイコンをタップすることでログインできます。</p>
@@ -48,15 +48,15 @@
 			<small>(Android:chrome)</small>
 		</p>
 		<p>
-		<?php $this->BcBaser->img('Members.android_step1.png'); ?><br>
+		<?php $this->BcBaser->img('Members.android_step1.png', ['class'=>'img-fluid']); ?><br>
 			<small>1) このページを開いたまま、メニューボタンをタップ、メニューを開く。メニューボタンが他にある機種もあります。	</small>
 		</p>
 		<p>
-		<?php $this->BcBaser->img('Members.android_step2.png'); ?><br>
+		<?php $this->BcBaser->img('Members.android_step2.png', ['class'=>'img-fluid']); ?><br>
 			<small>2) ホーム画面に追加をタップ。	</small>
 		</p>
 		<p>
-		<?php $this->BcBaser->img('Members.android_step3.png'); ?><br>
+		<?php $this->BcBaser->img('Members.android_step3.png', ['class'=>'img-fluid']); ?><br>
 			<small>3) 追加をタップ。</small>
 		</p>
 		<p>これでホーム画面にアイコンが追加され、次回からアイコンをタップすることでログインできます。<br>
