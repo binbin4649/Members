@@ -1,4 +1,4 @@
 <?php
-$this->Plugin->initDb('plugin', 'Members');
+$this->Plugin->initDb('Members');
 
 ?>
