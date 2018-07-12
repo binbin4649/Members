@@ -390,9 +390,7 @@ class MypagesController extends MembersAppController {
 		$this->request->data['Mypage']['username'] = $user['username'];
 		if($this->BcAuth->login()){
 			//パスワード暗号化
-			$key = Configure::read('Security.salt');
-			$crypt_pass = openssl_encrypt($this->request->data['Mypage']['password'], 'AES-256-ECB', $key);
-			$url_pass = rawurlencode($crypt_pass);
+			$url_pass = $this->Mypage->getMagiclinkPass($this->request->data['Mypage']['password']);
 			//マジックリンクをアクティブにする
 			$this->Mypage->id = $user['id'];
 			$this->Mypage->saveField('magiclink', 'active');

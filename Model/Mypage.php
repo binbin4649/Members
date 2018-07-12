@@ -95,5 +95,11 @@ class Mypage extends AppModel {
         return true;
     }
     
+    public function getMagiclinkPass($password){
+	    $key = Configure::read('Security.salt');
+		$crypt_pass = openssl_encrypt($password, 'AES-256-ECB', $key);
+		$url_pass = rawurlencode($crypt_pass);
+		return $url_pass;
+    }
 
 }
