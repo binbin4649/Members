@@ -41,7 +41,11 @@ class Mylog extends AppModel {
 			'recursive' => -1,
 			'limit' => 2
 		));
-		return $mylogs[1];
+		if(!empty($mylogs[1])){
+			return $mylogs[1];
+		}else{
+			return ['Mylog' => ['created'=>'---', 'action'=>'none']];
+		}
     }
     
 
