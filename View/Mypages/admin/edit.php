@@ -9,7 +9,6 @@
 				<?php echo $this->BcForm->input('Mypage.id', array('type' => 'hidden')) ?>
 			</td>
 		</tr>
-
 		<tr>
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.name', '名前') ?></th>
 			<td class="col-input">
@@ -72,20 +71,6 @@
 			<td class="col-input">
 				<?php echo $this->BcForm->input('Mypage.email', array('type' => 'text')) ?>
 				<?php echo $this->BcForm->error('Mypage.email') ?>
-			</td>
-		</tr>
-		<tr>
-			<th class="col-head"><?php echo $this->BcForm->label('Mypage.myadmin', '管理者') ?></th>
-			<td class="col-input">
-				<?php echo $this->BcForm->input('Mypage.myadmin', array('type'=>'radio', 'options'=>array('admin'=>'管理者', 'user'=>'非管理者'))) ?>
-				<?php echo $this->BcForm->error('Mypage.myadmin') ?>
-			</td>
-		</tr>
-		<tr>
-			<th class="col-head"><?php echo $this->BcForm->label('Mypage.myadmin_id', '管理者ID') ?></th>
-			<td class="col-input">
-				<?php echo $this->BcForm->input('Mypage.myadmin_id', array('type' => 'text')) ?>
-				<?php echo $this->BcForm->error('Mypage.myadmin_id') ?>
 			</td>
 		</tr>
 		<tr>

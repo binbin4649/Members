@@ -91,6 +91,38 @@ class MypagesController extends MembersAppController {
     $this->request->data = $mypage;
   }
   
+  //メール一斉送信
+  public function admin_broadcast_mail(){
+	  if($this->request->data){
+		  $data = $this->request->data['Mypage'];
+		  if(empty($data['title'])) $this->setMessage('件名を入力してください。', true);
+		  if(empty($data['body'])) $this->setMessage('本文を入力してください。', true);
+		  if(empty($data['submit_check'])) $this->setMessage('送信先にチェックを入れてください。', true);
+		  if(!empty($data['title']) && !empty($data['body']) && !empty($data['submit_check'])){
+			  if($data['submit_check'] == 'broadcast'){
+				  $conditions['conditions'] = ['Mypage.status'=>'0'];
+				  $conditions['recursive'] = '-1';
+				  $mypages = $this->Mypage->find('all', $conditions);
+				  $success = $fail = 0;
+				  foreach($mypages as $mypage){
+					  if($this->sendMail($mypage['Mypage']['email'], $data['title'], $data, array('template'=>'Members.broadcast', 'layout'=>'default'))){
+						  $success++;
+					  }else{
+						  $fail++;
+					  }
+				  }
+				  $this->setMessage('成功：'.$success.' 失敗：'.$fail.' 一斉送信が完了しました。');
+			  }
+			  if($this->sendMail($this->siteConfigs['email'], $data['title'], $data, array('template'=>'Members.broadcast', 'layout'=>'default'))){
+				  $this->setMessage('管理者にメールを送信しました。');
+			  }else{
+				  $this->setMessage('管理者へのメール送信に失敗しました。', true);
+			  }
+		  }
+	  }
+  }
+  
+  
   // フロント画面用のデフォルトアクション
   public function index() {
     $this->pageTitle = 'マイページトップ';
