@@ -69,6 +69,8 @@ class Mypage extends AppModel {
             // パスワードハッシュ化
             //$this->data[$this->name]['password'] = Security::hash( $field['password'], 'sha512', true);
             return true;
+        }else{
+	        return false;
         }
     }
 

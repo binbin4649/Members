@@ -13,7 +13,7 @@ class Mylog extends AppModel {
 	];
 	
 	// 第4引数の$user = 変更する前のユーザーデータ
-    public function record($mypage_id, $action, $user_id = null, $user = null){
+    public function record($mypage_id = null, $action = null, $user_id = null, $user = null){
         if(empty($mypage_id)) return false;
         if(empty($action)) return false;
         $serial_user = '';
