@@ -17,9 +17,19 @@
 	<p>現在はまだ仮登録となっています。<br>
 		<i class="far fa-hand-point-right"></i>「<?php echo $email; ?>」から、仮登録完了のメールを送信しましたので、メール本文にあるリンクをタップ（クリック）すると本登録となります。<br>
 		<small>
-		もし届いていない場合は、迷惑メールなどに振り分けられている場合もありますのでご確認ください。<br>
-		またメール着信までに2〜3分ほど時間がかかる場合もあります。<br>
-		それでも届かない場合は、恐れ入りますが今一度、新規登録から入力お願い致します。
+		<p>
+			もし届いていない場合は、迷惑メールなどに振り分けられている場合もありますのでご確認ください。<br>
+			またメール着信までに2〜3分ほど時間がかかる場合もあります。<br>
+			それでも届かない場合は、恐れ入りますが今一度、新規登録から入力お願い致します。
+		</p>
+		<p>
+			携帯各社の迷惑メールフィルターの設定については、それぞれ以下をご参照ください。
+			<ul>
+				<li><a href="https://www.nttdocomo.co.jp/info/spam_mail/spmode/domain/" target="_blank">docomo 受信リスト／拒否リスト設定</a></li>
+				<li><a href="https://www.au.com/support/service/mobile/trouble/mail/email/filter/detail/domain/" target="_blank">au 受信リスト設定</a></li>
+				<li><a href="https://www.softbank.jp/mobile/support/antispam/settings/whiteblack/" target="_blank">softbank 迷惑メールの受信許可・拒否設定をする</a></li>
+			</ul> 
+		</p>
 		</small>
 	</p>
 </div>
