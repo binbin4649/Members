@@ -23,7 +23,7 @@ class MylogTest extends BaserTestCase {
     
     public function testLastLog(){
 	    $result = $this->Mylog->lastLog(1);
-	    $this->assertEmpty(!$result);
+	    $this->assertEquals('none', $result['Mylog']['action']);
     }
 
 }

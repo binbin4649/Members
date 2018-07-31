@@ -1,11 +1,14 @@
 <?php
 
-class MylogFixture extends BaserTestFixture {
+class MylogFixture extends CakeTestFixture {
 	
 	//public $name = 'Members.Mylog';
 	//public $import = 'Mmebers.Mylog';
 	//public $useDbConfig = 'test';
+	
+	public $import = array('model' => 'Members.Mylog');
 
+/*
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => false, 'key' => 'primary'),
 		'mypage_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => false),
@@ -19,6 +22,7 @@ class MylogFixture extends BaserTestFixture {
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
+*/
 	
 	public $records = array();
 

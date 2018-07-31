@@ -1,9 +1,12 @@
 <?php
 
-class MypageFixture extends BaserTestFixture {
+class MypageFixture extends CakeTestFixture {
 	//public $name = 'Members.Mypage';
 	//public $useDbConfig = 'test';
+	
+	public $import = array('model' => 'Members.Mypage');
 
+/*
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -27,6 +30,7 @@ class MypageFixture extends BaserTestFixture {
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
+*/
 	
 	public $records = array(
 		array(
