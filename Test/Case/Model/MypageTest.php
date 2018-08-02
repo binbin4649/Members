@@ -7,8 +7,13 @@ class MypageTest extends BaserTestCase {
     );
 
     public function setUp() {
-        parent::setUp();
         $this->Mypage = ClassRegistry::init('Members.Mypage');
+        parent::setUp();
+    }
+    
+    public function tearDown(){
+	    unset($this->Mypage);
+	    parent::tearDown();
     }
 
     public function testValidateFalse(){

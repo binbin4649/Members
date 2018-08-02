@@ -7,8 +7,13 @@ class MylogTest extends BaserTestCase {
     );
 
     public function setUp() {
-        parent::setUp();
         $this->Mylog = ClassRegistry::init('Members.Mylog');
+        parent::setUp();
+    }
+    
+    public function tearDown(){
+	    unset($this->Mylog);
+	    parent::tearDown();
     }
 
     public function testTrueRecord(){
