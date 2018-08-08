@@ -4,7 +4,7 @@
 
 <h1 class="h5 border-bottom py-3 mb-4 mb-md-5 text-secondary">ログイン</h1>
 <div class="my-3">
-	<?php echo $this->BcForm->create('Mypage', array('class' => 'form-signin', 'url' => 'login')) ?>
+	<?php echo $this->BcForm->create('Mypage', array('class' => 'form-signin')) ?>
 	  <label for="inputEmail" class="sr-only">メールアドレス、またはログインID</label>
 	  <?php echo $this->BcForm->input('Mypage.username', array('type' => 'email', 'class' => 'form-control', 'placeholder' => 'Email address')) ?>
 	  
