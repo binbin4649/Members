@@ -7,6 +7,14 @@ App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 class Mypage extends AppModel {
 
 	public $name = 'Mypage';
+	
+	public $hasMany = [
+		'Mylog' => [
+			'className' => 'Members.Mylog',
+			'foreignKey' => 'mypage_id',
+			'order' => 'Mylog.created DESC',
+			'limit' => 10
+	]];
 
 	public $validate = array(
         'username' => array(
@@ -102,6 +110,22 @@ class Mypage extends AppModel {
 		$crypt_pass = openssl_encrypt($password, 'AES-256-ECB', $key);
 		$url_pass = rawurlencode($crypt_pass);
 		return $url_pass;
+    }
+    
+    //退会、削除
+    public function withdrawal($user){
+	    if(empty($user['id']) && empty($user['email'])) return false;
+	    if(empty($user['username'])) $user['username'] = $user['email'];
+	    $mypage['Mypage']['id'] = $user['id'];
+	    $mypage['Mypage']['status'] = 2;
+	    $mypage['Mypage']['username'] = $user['username'].date('Ymd');//再入会できるようにする。
+	    $mypage['Mypage']['email'] = $user['email'].date('Ymd');
+	    if($this->save($mypage, false)){
+		    $this->Mylog->record($user['id'], 'withdrawal');
+		    return true;
+	    }else{
+		    return false;
+	    }
     }
 
 }

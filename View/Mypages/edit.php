@@ -95,12 +95,12 @@ if ($this->Session->check('Message.auth')) {
 <?php if($user['magiclink'] == 'active'): ?>
 	<div class="row mb-3">
 		<div class="col-md-4 text-md-right">
-			<?php echo $this->BcForm->label('Mypage.magiclink', 'マジックリンク') ?>
+			マジックリンク
 		</div>
 		<div class="col-md-8">
 			<div class="form-check form-check-inline">
 				<?php echo $this->BcForm->input('Mypage.magiclink', array('type'=>'checkbox', 'class' => 'form-check-input')) ?>
-				<label class="form-check-label ml-2" for="MypageMagiclink">無効にする。</label>
+				<label class="form-check-label ml-2">無効にする。</label>
 			</div>
 		</div>
 	</div>

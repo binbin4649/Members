@@ -12,6 +12,7 @@ class Mylog extends AppModel {
 			'foreignKey' => 'mypage_id']
 	];
 	
+	// user_id 管理者が変更した場合に入れる
 	// 第4引数の$user = 変更する前のユーザーデータ
     public function record($mypage_id = null, $action = null, $user_id = null, $user = null){
         if(empty($mypage_id)) return false;

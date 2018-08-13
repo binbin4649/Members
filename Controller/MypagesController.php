@@ -133,8 +133,7 @@ class MypagesController extends MembersAppController {
     if(empty($Point)){
 	    $pointPlugin = false;
     }else{
-	    App::import('Model', 'Point.PointUser');
-	    $PointUser = new PointUser;
+	    $PointUser = ClassRegistry::init('Point.PointUser');
 	    $pointPlugin = $PointUser->findByMypageId($user['id'], null, null, 1);
     }
     $this->set('pointPlugin', $pointPlugin);
@@ -400,15 +399,14 @@ class MypagesController extends MembersAppController {
 	$user = $this->BcAuth->user();
 	if($this->request->data){
 		if (!empty($this->request->data['Mypage']['withdrawal'] == 'bin')) {
-			$this->Mypage->id = $user['id'];
-			$this->Mypage->saveField('status', 2);
-			$this->Mypage->saveField('username', $user['username'].date('Ymd'));//再入会できるようにする。
-			$this->Mypage->saveField('email', $user['email'].date('Ymd'));
-			$this->Cookie->destroy('BcAuth.Members');
-		    $this->BcAuth->logout();
-		    $this->setMessage('退会しました。ご利用ありがとうございました。');
-		    $this->Mylog->record($user['id'], 'withdrawal');
-		    $this->redirect(array( 'controller' => 'mypages', 'action' => 'login'));
+			if($this->Mypage->withdrawal($user)){
+				$this->Cookie->destroy('BcAuth.Members');
+			    $this->BcAuth->logout();
+			    $this->setMessage('退会しました。ご利用ありがとうございました。');
+			    $this->redirect(array( 'controller' => 'mypages', 'action' => 'login'));
+			}else{
+				$this->setMessage('ERROR: MypageController.php withdrawal save error.');
+			}
 		}
 	}	
 	$this->set('user', $user);
