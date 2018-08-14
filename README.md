@@ -48,6 +48,18 @@ https://github.com/baserproject/basercms
 
   - テーマ変更で初期データ読み込むと、会員（メンバー）が全部削除されます。
 
+### マジックリンク
+
+apache httpd.confのVirtualHostに以下を追記。
+AllowEncodedSlashes On
+
+(confが分かれている)kusanagiの場合は、
+/etc/httpd/conf.d/sample_http.conf
+/etc/httpd/conf.d/sample_ssl.conf
+にVirtualHostの設定がある。
+sampleはプロビジョニング名。
+
+
 ## Issue
 
 記法がバラバラだったりしてます。ごめんなさい。追々直していきます。  

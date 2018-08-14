@@ -435,7 +435,15 @@ class MypagesController extends MembersAppController {
 	$this->set('user', $user);
   }
   
-  public function ml($id, $pass){
+  public function ml($id, $pass, $p1=null, $p2=null, $p3=null, $p4=null, $p5=null, $p6=null, $p7=null, $p8=null){
+	if(!empty($p1)) $pass = $pass.'/'.$p1;
+	if(!empty($p2)) $pass = $pass.'/'.$p2;
+	if(!empty($p3)) $pass = $pass.'/'.$p3;
+	if(!empty($p4)) $pass = $pass.'/'.$p4;
+	if(!empty($p5)) $pass = $pass.'/'.$p5;
+	if(!empty($p6)) $pass = $pass.'/'.$p6;
+	if(!empty($p7)) $pass = $pass.'/'.$p7;
+	if(!empty($p8)) $pass = $pass.'/'.$p8;
 	$this->pageTitle = 'Magic Link Login';
 	$user = $this->BcAuth->user();
 	if(!$user){
@@ -448,6 +456,7 @@ class MypagesController extends MembersAppController {
 			$this->setMessage('マジックリンクが無効です。', true);
 			$this->redirect(array( 'controller' => 'mypages', 'action' => 'index'));
 		}
+		$this->log($pass);
 		$key = Configure::read('Security.salt');
 		//$url_pass = urldecode($pass);//半角スペースが混じるからとりあえず削除
 		$password = @openssl_decrypt($pass, 'AES-256-ECB', $key);
