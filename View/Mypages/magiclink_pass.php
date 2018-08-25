@@ -1,7 +1,7 @@
 <?php $this->BcBaser->css(array('Members.members'), array('inline' => false)); ?>
 <?php echo $this->Session->flash(); ?>
 
-<h1 class="h5 border-bottom py-3 mb-4 mb-md-5 text-secondary">マジックリンク</h1>
+<h1 class="h5 border-bottom py-3 mb-4 mb-md-5 text-secondary">パスワード入力</h1>
 <div class="my-3">
 		<p>マジックリンクとは、ログインID・パスワードを入力せずにログインできる、特殊なリンクです。<br>
 			このマジックリンクを「ホーム画面に追加」「ブックマークに追加」などしていただくと、次回から簡単にログインできます。
