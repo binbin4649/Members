@@ -1,6 +1,6 @@
+<?php $device = $this->Mypage->mobileDetect(); ?>
 <?php $this->BcBaser->css(array('Members.members'), array('inline' => false)); ?>
 <?php echo $this->Session->flash(); ?>
-<?php $device = $this->Mypage->mobileDetect() ?>
 <script>
     function copyToClipboard() {
         // コピー対象をJavaScript上で変数として定義する

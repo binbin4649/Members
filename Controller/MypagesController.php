@@ -444,6 +444,7 @@ class MypagesController extends MembersAppController {
 	if(!empty($p6)) $pass = $pass.'/'.$p6;
 	if(!empty($p7)) $pass = $pass.'/'.$p7;
 	if(!empty($p8)) $pass = $pass.'/'.$p8;
+	$this->layout = 'ml';
 	$this->pageTitle = 'Magic Link Login';
 	$user = $this->BcAuth->user();
 	if(!$user){
@@ -476,6 +477,15 @@ class MypagesController extends MembersAppController {
 	$pass = rawurlencode($pass);
 	$magic_link = $uri.'members/mypages/ml/'.$id.'/'.$pass;
 	$this->set('magic_link', $magic_link);
+	//スマホのホーム画面に設置した時用。ドメインを取り出してタイトルにする。
+	$urls = parse_url($uri);
+	$domains = explode(".", $urls['host']);
+	if($domains[0] == 'www'){
+		$ml_title = $domains[1];
+	}else{
+		$ml_title = $domains[0];
+	}
+	$this->set('ml_title', $ml_title);
   }
 
   	public function userlog(){
