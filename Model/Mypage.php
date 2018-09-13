@@ -118,8 +118,8 @@ class Mypage extends AppModel {
 	    if(empty($user['username'])) $user['username'] = $user['email'];
 	    $mypage['Mypage']['id'] = $user['id'];
 	    $mypage['Mypage']['status'] = 2;
-	    $mypage['Mypage']['username'] = $user['username'].date('Ymd');//再入会できるようにする。
-	    $mypage['Mypage']['email'] = $user['email'].date('Ymd');
+	    $mypage['Mypage']['username'] = $user['username'].date('YmdHis');//再入会できるようにする。
+	    $mypage['Mypage']['email'] = $user['email'].date('YmdHis');
 	    if($this->save($mypage, false)){
 		    $this->Mylog->record($user['id'], 'withdrawal');
 		    return true;

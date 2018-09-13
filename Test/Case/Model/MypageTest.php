@@ -4,6 +4,7 @@ App::uses('Mypage', 'Members.Model');
 class MypageTest extends BaserTestCase {
     public $fixtures = array(
         'plugin.members.Default/Mypage',
+        'plugin.members.Default/Mylog'
     );
 
     public function setUp() {
