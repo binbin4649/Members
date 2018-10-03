@@ -232,6 +232,8 @@ class MypagesController extends MembersAppController {
 
   public function login($username = null){
     if ($this->request->data) {
+	    $this->request->data['Mypage']['username'] = trim($this->request->data['Mypage']['username']);
+	    $this->request->data['Mypage']['password'] = trim($this->request->data['Mypage']['password']);
       if($this->BcAuth->login()){
         //ログイン成功したときの処理
         if (!empty($this->request->data['Mypage']['saved'])) {

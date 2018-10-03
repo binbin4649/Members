@@ -100,7 +100,7 @@ class Mypage extends AppModel {
 
     public function Reregistration($email){
         //既に登録があって、未認証だったら一旦削除する
-        $mypages = $this->find('first', array('conditions' => array('status'=>1, 'name'=>$email)));
+        $mypages = $this->find('first', array('conditions' => array('status'=>1, 'username'=>$email)));
         if($mypages) $this->delete($mypages['Mypage']['id']);
         return true;
     }
