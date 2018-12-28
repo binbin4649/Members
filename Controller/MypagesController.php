@@ -138,6 +138,16 @@ class MypagesController extends MembersAppController {
     }
     $this->set('pointPlugin', $pointPlugin);
     
+    // $userが PointManagerプラグインに入っているか確認
+    $PM = $this->Plugin->findByName('PointManager');
+    if(empty($PM)){
+	    $PmPlugin = false;
+    }else{
+	    $Pmpage = ClassRegistry::init('PointManager.Pmpage');
+	    $PmPlugin = $Pmpage->findByMypageId($user['id'], null, null, -1);
+    }
+    $this->set('PmPlugin', $PmPlugin);
+    
     $mylog = $this->Mylog->lastLog($user['id']);
     $this->set('mylog', $mylog);
     
