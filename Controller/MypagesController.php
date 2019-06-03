@@ -57,6 +57,7 @@ class MypagesController extends MembersAppController {
   }
 
   public function admin_edit($id = null){
+	  $this->pageTitle = '会員-編集';
     if (empty($id)) {
       $this->setMessage('無効なIDです。', true);
       $this->redirect(array('action' => 'index'));
@@ -91,8 +92,23 @@ class MypagesController extends MembersAppController {
     $this->request->data = $mypage;
   }
   
+  public function admin_add(){
+	  $this->pageTitle = '会員-新規登録';
+	  if($this->request->data){
+		  $this->request->data['Mypage']['username'] = $this->request->data['Mypage']['email'];
+		  if( $this->Mypage->save($this->request->data)){
+			  $name = $this->request->data['Mypage']['name'];
+			  $this->setMessage( $name.' さんを登録しました。');
+			  $this->redirect(array('action' => 'index'));
+		  }else{
+			  $this->setMessage('入力エラー', true);
+		  }
+	  }
+  }
+  
   //メール一斉送信
   public function admin_broadcast_mail(){
+	  $this->pageTitle = 'メール一斉送信';
 	  if($this->request->data){
 		  $data = $this->request->data['Mypage'];
 		  if(empty($data['title'])) $this->setMessage('件名を入力してください。', true);
