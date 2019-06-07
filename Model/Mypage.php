@@ -63,6 +63,19 @@ class Mypage extends AppModel {
                 'message' => '名前は100文字以内で入力してください。')
         ),
     );
+    
+    public function beforeValidate($options = array()){
+	    if(isset($this->data[$this->name]['tel'])){
+		    $this->data[$this->name]['tel'] = $this->numbersOnly($this->data[$this->name]['tel']);
+	    }
+	    return true;
+    }
+    
+    public function numbersOnly($data){
+	    $data = mb_convert_kana($data, 'n');
+	    $data = preg_replace('/[^0-9]/', '', $data);
+	    return $data;
+    }
 
     public function beforeSave($options = array()) {
         if (isset($this->data['Mypage']['password'])) {
@@ -127,5 +140,17 @@ class Mypage extends AppModel {
 		    return false;
 	    }
     }
+    
+    // 有効無効を返す。
+     // status. 0 = 有効, 1 = アクティベート前, 2 = 退会
+    public function mypageAvailable($id){
+	    $mypage = $this->findById($id, null, null, -1);
+	    if($mypage['Mypage']['status'] == 0){
+		    return '有効';
+	    }else{
+		    return '無効';
+	    }
+    }
+    
 
 }
