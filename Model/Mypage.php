@@ -3,6 +3,7 @@
 
 App::import('Model', 'AppModel');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+App::uses('CakeEmail', 'Network/Email');
 
 class Mypage extends AppModel {
 
@@ -152,5 +153,68 @@ class Mypage extends AppModel {
 	    }
     }
     
+    
+    public function sendEmail($to, $title = '', $body = '', $options = array()){
+		if(Configure::read('MccPlugin.TEST_MODE')){
+			$email_piece = Configure::read('MccPlugin.TEST_EMAIL_PIECE');
+			if(strpos($to, $email_piece) === false) return true;
+		}
+		if(!Configure::read('MccPlugin.TEST_MODE')){
+			$bcc = Configure::read('MccPlugin.sendMailBcc');
+		}
+		$this->siteConfigs = Configure::read('BcSite');
+		$config = array(
+			'transport' => 'Smtp',
+			'host' => $this->siteConfigs['smtp_host'],
+			'port' => ($this->siteConfigs['smtp_port']) ? $this->siteConfigs['smtp_port'] : 25,
+			'username' => ($this->siteConfigs['smtp_user']) ? $this->siteConfigs['smtp_user'] : null,
+			'password' => ($this->siteConfigs['smtp_password']) ? $this->siteConfigs['smtp_password'] : null,
+			'tls' => $this->siteConfigs['smtp_tls'] && ($this->siteConfigs['smtp_tls'] == 1)
+		);
+		$cakeEmail = new CakeEmail($config);
+		// charset
+		if (!empty($this->siteConfigs['mail_encode'])) {
+			$encode = $this->siteConfigs['mail_encode'];
+		} else {
+			$encode = 'ISO-2022-JP';
+		}
+		$cakeEmail->headerCharset($encode);
+		$cakeEmail->charset($encode);
+		$cakeEmail->emailFormat('text');
+		
+		$cakeEmail->addTo($to);
+		$cakeEmail->subject($title);
+		if (!empty($this->siteConfigs['formal_name'])) {
+			$fromName = $this->siteConfigs['formal_name'];
+		}else{
+			$fromName = Configure::read('BcApp.title');
+		}
+		$from = $this->siteConfigs['email'];
+		$body['mailConfig']['site_name'] = $fromName;
+		$body['mailConfig']['site_url'] = Configure::read('BcEnv.siteUrl');
+		$body['mailConfig']['site_email'] = $from;
+		
+		$cakeEmail->from($from, $fromName);
+		if(!empty($bcc)){
+			$cakeEmail->bcc($bcc);
+		}
+		$cakeEmail->replyTo($from);
+		$cakeEmail->returnPath($from);
+		$cakeEmail->viewRender('BcApp');
+		if(empty($options['layout'])){
+			$options['layout'] = 'default';
+		}
+		
+		$cakeEmail->template($options['template'], $options['layout']);
+		$cakeEmail->viewVars($body);
+		
+		try {
+			$cakeEmail->send();
+			return true;
+		}catch(Exception $e){
+			$this->log('MccCall.php sendEmail error. '.$e->getMessage());
+			return false;
+		}
+	}
 
 }
