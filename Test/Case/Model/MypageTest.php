@@ -61,5 +61,15 @@ class MypageTest extends BaserTestCase {
 	    $this->assertEmpty(!$this->Mypage->getMagiclinkPass('111222'));
     }
     
+    public function testSendEmail(){
+	    Configure::write('MccPlugin.TEST_MODE', true);
+	    $to = 'test';
+	    $title = 'test';
+	    $body = 'test';
+	    $options = 'test';
+	    $r = $this->Mypage->sendEmail($to, $title, $body, $options);
+	    $this->assertTrue($r);
+    }
+    
 
 }

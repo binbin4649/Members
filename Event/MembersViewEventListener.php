@@ -12,7 +12,7 @@ class MembersViewEventListener extends BcViewEventListener {
         $user = BcAuthComponent::user();
         if($user){
 	        $event->data = str_replace('/login', '/members/mypages/', $event->data);
-	        $event->data = str_replace('ログイン', 'マイページ', $event->data);
+	        $event->data = str_replace('Login', 'マイページ', $event->data);
         }
 	}
 	
