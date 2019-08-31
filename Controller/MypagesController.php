@@ -144,6 +144,7 @@ class MypagesController extends MembersAppController {
     $this->pageTitle = 'マイページトップ';
     $user = $this->BcAuth->user();
     
+/* nos で問題ないことを確認してから削除
     // Pointプラグインが入っているか確認
     $Point = $this->Plugin->findByName('Point');
     if(empty($Point)){
@@ -163,6 +164,7 @@ class MypagesController extends MembersAppController {
 	    $PmPlugin = $Pmpage->findByMypageId($user['id'], null, null, -1);
     }
     $this->set('PmPlugin', $PmPlugin);
+*/
     
     $mylog = $this->Mylog->lastLog($user['id']);
     $this->set('mylog', $mylog);
