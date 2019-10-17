@@ -324,6 +324,7 @@ class MypagesController extends MembersAppController {
 	        $this->request->data['Mypage']['name'] = $this->request->data['Mypage']['username'];
 	        $this->request->data['Mypage']['email'] = $this->request->data['Mypage']['username'];
 	        $this->Mypage->Reregistration($this->request->data['Mypage']['email']); //未認証だったら一旦削除、再登録
+	        $this->request->data['Mypage']['status'] = '1';
 	        if( $this->Mypage->save($this->request->data)){
 		        $mypage_id = $this->Mypage->getLastInsertID();
 	            // ユーザアクティベート(本登録)用URLの作成
@@ -344,7 +345,7 @@ class MypagesController extends MembersAppController {
 	            }
 	            $this->setMessage( 'メールを送信しました。メール本文にあるリンクをタップすると本登録になります。');
 	            $this->Mylog->record($this->Mypage->id, 'signup');
-	            $this->redirect(array( 'controller' => 'mypages', 'action' => 'thanks/'.$mypage_id));
+	            $this->redirect(array('plugin' => 'members',  'controller' => 'mypages', 'action' => 'thanks/'.$mypage_id));
 	        } else {
 	            //  バリデーションエラーメッセージを渡す
 	            $this->setMessage('入力エラー', true);
