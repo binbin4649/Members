@@ -27,6 +27,7 @@ class Mylog extends AppModel {
                 'user_id' => $user_id,
                 'history' => $serial_user
             );
+        $this->create();
         if($this->save($mylog)){
             return true;
         }else{
