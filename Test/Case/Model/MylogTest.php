@@ -2,7 +2,9 @@
 App::uses('Mylog', 'Members.Model');
 
 class MylogTest extends BaserTestCase {
+	
     public $fixtures = array(
+	    'plugin.members.Default/Mypage',
         'plugin.members.Default/Mylog',
     );
 
@@ -30,5 +32,16 @@ class MylogTest extends BaserTestCase {
 	    $result = $this->Mylog->lastLog(1);
 	    $this->assertEquals('none', $result['Mylog']['action']);
     }
+    
+    public function testIsMessage(){
+	    $mypage_id = '1';
+	    $r = $this->Mylog->isMessage($mypage_id);
+	    if($r){
+		    $rr = $this->Mylog->findById(1);
+	    }
+	    $this->assertEquals('テスト1だよーん', $r[0]['Mylog']['history']);
+	    $this->assertEquals('message_done', $rr['Mylog']['action']);
+    }
+    
 
 }

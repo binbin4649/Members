@@ -130,3 +130,9 @@ if ($this->Session->check('Message.auth')) {
 	<?php echo $this->BcForm->submit('送信', array('div' => false, 'class' => 'btn btn-lg btn-primary btn-e', 'id' => 'BtnLogin')) ?>
 </div>
 <?php echo $this->BcForm->end() ?>
+
+<div class="my-3 container">
+	<div class="my-2">
+		<?php echo $this->BcBaser->link( '退会はこちら', '/members/mypages/withdrawal');?>
+	</div>
+</div>

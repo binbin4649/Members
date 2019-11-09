@@ -50,5 +50,25 @@ class Mylog extends AppModel {
 		}
     }
     
+    // マイページトップに、任意のタイミングでフラッシュメッセージを表示
+    // Mylog.action => 'message_submit' の history をフラッシュメッセージで表示する
+    // 一度表示したら、Mylog.action => 'message_done' に変更する
+    public function isMessage($mypage_id){
+	    $mylogs = $this->find('all', array(
+        	'conditions' => [
+        		'Mylog.mypage_id' => $mypage_id,
+        		'Mylog.action' => 'message_submit'
+        	],
+			'recursive' => -1,
+		));
+		foreach($mylogs as $log){
+			$log['Mylog']['action'] = 'message_done';
+			$this->create();
+			$this->save($log);
+		}
+		return $mylogs;
+    }
+    
+    
 
 }

@@ -166,6 +166,10 @@ class MypagesController extends MembersAppController {
     $this->set('PmPlugin', $PmPlugin);
 */
     
+    $messages = $this->Mylog->isMessage($user['id']);
+    foreach($messages as $message){
+	    $this->setMessage($message['Mylog']['history']);
+    }
     $mylog = $this->Mylog->lastLog($user['id']);
     $this->set('mylog', $mylog);
     
@@ -530,7 +534,14 @@ class MypagesController extends MembersAppController {
 		$mylog = $this->paginate('Mylog');
 		$this->set('mylog', $mylog);
 	}
-
+	
+	public function mail_delivery_test(){
+		$user = $this->BcAuth->user();
+		$options = ['template'=>'Members.delivery_test'];
+		$this->Mypage->sendEmail($user['email'], 'メール配信テスト', $user, $options);
+		$this->setMessage('テストメールを送信しました。受信を確認してください。', false);
+		$this->redirect(array( 'controller' => 'mypages', 'action' => 'edit'));
+	}
 
 
 }
