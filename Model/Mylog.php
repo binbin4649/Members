@@ -14,12 +14,14 @@ class Mylog extends AppModel {
 	
 	// user_id 管理者が変更した場合に入れる
 	// 第4引数の$user = 変更する前のユーザーデータ
-    public function record($mypage_id = null, $action = null, $user_id = null, $user = null){
+    public function record($mypage_id = null, $action = null, $user_id = null, $user = null, $history = null){
         if(empty($mypage_id)) return false;
         if(empty($action)) return false;
-        $serial_user = '';
         if($user){
 	        $serial_user = serialize($user);
+        }else{
+	        // message対応で追加
+	        $serial_user = $history;
         }
         $mylog['Mylog'] = array(
                 'mypage_id' => $mypage_id,
