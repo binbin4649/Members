@@ -204,7 +204,13 @@ class Mypage extends AppModel {
 		if(empty($options['layout'])){
 			$options['layout'] = 'default';
 		}
-		
+		if(!empty($options['attachments'])){// 1ファイル限定
+			if(!file_exists($options['attachments'])){
+				$this->log('Mypage.php sendEmail attachments file error. :'.$options['attachments']);
+				return false;
+			}
+			$cakeEmail->attachments($options['attachments']);
+		}
 		$cakeEmail->template($options['template'], $options['layout']);
 		$cakeEmail->viewVars($body);
 		

@@ -16,4 +16,9 @@ class MypageHelper extends BcAppHelper {
 		return $deviceType;
 	}
 	
+	public function isMobile(){
+		$detect = new Mobile_Detect;
+		return $detect->isMobile();
+	}
+	
 }
