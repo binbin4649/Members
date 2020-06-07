@@ -143,29 +143,6 @@ class MypagesController extends MembersAppController {
   public function index() {
     $this->pageTitle = 'マイページトップ';
     $user = $this->BcAuth->user();
-    
-/* nos で問題ないことを確認してから削除
-    // Pointプラグインが入っているか確認
-    $Point = $this->Plugin->findByName('Point');
-    if(empty($Point)){
-	    $pointPlugin = false;
-    }else{
-	    $PointUser = ClassRegistry::init('Point.PointUser');
-	    $pointPlugin = $PointUser->findByMypageId($user['id'], null, null, 1);
-    }
-    $this->set('pointPlugin', $pointPlugin);
-    
-    // $userが PointManagerプラグインに入っているか確認
-    $PM = $this->Plugin->findByName('PointManager');
-    if(empty($PM)){
-	    $PmPlugin = false;
-    }else{
-	    $Pmpage = ClassRegistry::init('PointManager.Pmpage');
-	    $PmPlugin = $Pmpage->findByMypageId($user['id'], null, null, -1);
-    }
-    $this->set('PmPlugin', $PmPlugin);
-*/
-    
     $messages = $this->Mylog->isMessage($user['id']);
     foreach($messages as $message){
 	    $this->setMessage($message['Mylog']['history']);
@@ -176,6 +153,9 @@ class MypagesController extends MembersAppController {
     //name がメールアドレスの場合はアラート出す。新規登録時はメールアドレスが入るため
 	if(filter_var($user['name'], FILTER_VALIDATE_EMAIL)){
 		$this->setMessage('ユーザー編集から、ユーザー名を修正してください。', true);
+	}
+	if(!empty($user['UserGroup']) && $user['UserGroup']['auth_prefix'] == 'admin'){
+		$this->redirect('/admin/');
 	}
   }
 
