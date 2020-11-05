@@ -14,6 +14,8 @@ class MembersViewEventListener extends BcViewEventListener {
 	        $event->data = str_replace('/login', '/members/mypages/', $event->data);
 	        $event->data = str_replace('Login', 'マイページ', $event->data);
 	        $event->data = str_replace('ログイン', 'マイページ', $event->data);
+	        $event->data = str_replace('/demo', '/members/mypages/logout', $event->data);
+	        $event->data = str_replace('デモ', 'ログアウト', $event->data);
         }
 	}
 	
