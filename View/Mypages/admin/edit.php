@@ -25,7 +25,7 @@
 			<th class="col-head" width="150"><?php echo $this->BcForm->label('Mypage.sex', '性別') ?></th>
 			<td class="col-input">
 			<?php echo $this->BcForm->input('Mypage.sex', array('type'=>'radio',
-				'options'=>array('male'=>'男性','female'=>'女性', 'unknown'=>'不明', 'unapplicable'=>'適用外')
+				'options'=>array('man'=>'男性','woman'=>'女性', 'unknown'=>'不明', 'unapplicable'=>'適用外')
 				)) 
 			?>
 			<?php echo $this->BcForm->error('Mypage.sex') ?></td>

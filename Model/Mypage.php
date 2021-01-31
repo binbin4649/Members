@@ -134,6 +134,7 @@ class Mypage extends AppModel {
 	    $mypage['Mypage']['status'] = 2;
 	    $mypage['Mypage']['username'] = $user['username'].date('YmdHis');//再入会できるようにする。
 	    $mypage['Mypage']['email'] = $user['email'].date('YmdHis');
+	    $mypage['Mypage']['tel'] = $user['tel'].'-'.date('YmdHis');
 	    if($this->save($mypage, false)){
 		    $this->Mylog->record($user['id'], 'withdrawal');
 		    return true;
@@ -156,7 +157,7 @@ class Mypage extends AppModel {
     
     public function sendEmail($to, $title = '', $body = '', $options = array()){
 		if(Configure::read('MccPlugin.TEST_MODE')){
-			$email_piece = Configure::read('MccPlugin.TEST_EMAIL_PIECE');
+			$email_piece = Configure::read('MccPlugin.TEST_EMAIL_PIECE');// PIECEが入っていたらメール送信
 			if(strpos($to, $email_piece) === false) return true;
 		}
 		if(!Configure::read('MccPlugin.TEST_MODE')){
