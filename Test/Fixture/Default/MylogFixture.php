@@ -2,38 +2,40 @@
 
 class MylogFixture extends CakeTestFixture {
 	
-	//public $name = 'Members.Mylog';
-	//public $import = 'Mmebers.Mylog';
-	//public $useDbConfig = 'test';
-	
 	public $import = array('model' => 'Members.Mylog');
-
-/*
-	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => false, 'key' => 'primary'),
-		'mypage_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => false),
-		'user_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'action' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 200, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'history' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'modified' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
-	);
-*/
 	
-	public $records = array(
-		array(
-			'id' => 1,
-			'mypage_id' => 1,
-			'user_id' => '',
-			'action' => 'message_submit',
-			'history' => 'テスト1だよーん',
-			'created' => '2018-07-30 14:06:01',
-			'modified' => '2018-07-30 14:06:01'
-		),
-	);
+	public function init(){
+		$this->records = [
+			[
+				'id' => 1,
+				'mypage_id' => 1,
+				'user_id' => '',
+				'action' => 'message_submit',
+				'history' => 'テスト1だよーん',
+				'created' => '2018-07-30 14:06:01',
+				'modified' => '2018-07-30 14:06:01'
+			],
+			[
+				'id' => 2,
+				'mypage_id' => 2,
+				'user_id' => '',
+				'action' => 'signin',
+				'history' => '',
+				'created' => date('Y-m-d H:i:s', strtotime('-10 day')),
+				'modified' => date('Y-m-d H:i:s', strtotime('-10 day'))
+			],
+			[
+				'id' => 3,
+				'mypage_id' => 2,
+				'user_id' => '',
+				'action' => 'signin',
+				'history' => '',
+				'created' => date('Y-m-d H:i:s', strtotime('-60 day')),
+				'modified' => date('Y-m-d H:i:s', strtotime('-60 day'))
+			],
+		];
+		parent::init();
+	}
+	
 
 }

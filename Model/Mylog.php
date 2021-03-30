@@ -52,6 +52,33 @@ class Mylog extends AppModel {
 		}
     }
     
+    // 指定actionの最後を返す
+    public function lastActionLog($mypage_id, $action){
+	    $mylog = $this->find('first', array(
+        	'conditions' => array(
+        		'Mylog.mypage_id' => $mypage_id,
+        		'Mylog.action' => $action
+        	),
+			'order' => array('Mylog.created DESC'),
+			'recursive' => -1,
+		));
+		return $mylog;
+    }
+    
+    // 指定actionの、今日からの経過日数を返す
+    public function lastActionDays($mypage_id, $action){
+	    $mylog = $this->lastActionLog($mypage_id, $action);
+	    if($mylog){
+		    $log_date = new DateTime($mylog['Mylog']['created']);
+		    $now = new DateTime('now');
+		    $diff = $log_date->diff($now);
+		    return $diff->days;
+	    }else{
+		    return false;
+	    }
+    }
+    
+    
     // マイページトップに、任意のタイミングでフラッシュメッセージを表示
     // Mylog.action => 'message_submit' の history をフラッシュメッセージで表示する
     // 一度表示したら、Mylog.action => 'message_done' に変更する

@@ -17,7 +17,28 @@ class MylogTest extends BaserTestCase {
 	    unset($this->Mylog);
 	    parent::tearDown();
     }
-
+	
+	public function testLastActionDaysFalse(){
+		$mypage_id = '2';
+		$action = 'test';
+		$r = $this->Mylog->lastActionDays($mypage_id, $action);
+		$this->assertFalse($r);
+	}
+	
+	public function testLastActionDays(){
+		$mypage_id = '2';
+		$action = 'signin';
+		$r = $this->Mylog->lastActionDays($mypage_id, $action);
+		$this->assertEquals(10, $r);
+	}
+	
+	public function testLastActionLog(){
+		$mypage_id = '2';
+		$action = 'signin';
+		$r = $this->Mylog->lastActionLog($mypage_id, $action);
+		$this->assertEquals('2', $r['Mylog']['id']);
+	}
+	
     public function testTrueRecord(){
         $result = $this->Mylog->record('1', 'test');
         $this->assertTrue($result);

@@ -9,12 +9,21 @@ class MypageTest extends BaserTestCase {
 
     public function setUp() {
         $this->Mypage = ClassRegistry::init('Members.Mypage');
+        $this->Mylog = ClassRegistry::init('Members.Mylog');
         parent::setUp();
     }
     
     public function tearDown(){
 	    unset($this->Mypage);
 	    parent::tearDown();
+    }
+    
+    public function testNotActivation(){
+	    $this->Mypage->notActivation();
+	    $mypage_id = '4';
+	    $action = 'not_activate';
+	    $r = $this->Mylog->lastActionLog($mypage_id, $action);
+	    $this->assertTrue(!empty($r));
     }
 
     public function testValidateFalse(){

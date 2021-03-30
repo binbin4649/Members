@@ -135,12 +135,37 @@ class Mypage extends AppModel {
 	    $mypage['Mypage']['username'] = $user['username'].date('YmdHis');//再入会できるようにする。
 	    $mypage['Mypage']['email'] = $user['email'].date('YmdHis');
 	    $mypage['Mypage']['tel'] = $user['tel'].'-'.date('YmdHis');
+	    $this->create();
 	    if($this->save($mypage, false)){
 		    $this->Mylog->record($user['id'], 'withdrawal');
 		    return true;
 	    }else{
 		    return false;
 	    }
+    }
+    
+    // 1時間以上の未アクティベーションを、再登録できるように変更する
+    public function notActivation(){
+	    $mypages = $this->find('all', array(
+        	'conditions' => array(
+        		'Mypage.status' => 1,
+        		'Mypage.created <=' => date("Y-m-d H:i:s",strtotime("-1 hour")),
+        	),
+			'recursive' => -1,
+		));
+		foreach($mypages as $mypage){
+			$mypage['Mypage']['status'] = 2;
+			$mypage['Mypage']['username'] = $mypage['Mypage']['username'].'-'.date('YmdHis');
+			$mypage['Mypage']['email'] = $mypage['Mypage']['email'].'-'.date('YmdHis');
+			$mypage['Mypage']['tel'] = $mypage['Mypage']['tel'].'-'.date('YmdHis');
+			$this->create();
+			if($this->save($mypage, false)){
+				$this->Mylog->record($mypage['Mypage']['id'], 'not_activate');
+			}else{
+				$this->log('Mypage.php notActivation save error. : '.print_r($mypage, true));
+			}
+		}
+		return true;
     }
     
     // 有効無効を返す。

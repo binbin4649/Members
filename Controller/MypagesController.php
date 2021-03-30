@@ -26,7 +26,7 @@ class MypagesController extends MembersAppController {
             'scope' => array( 'Mypage.status' => 0)
         ));
     //ログイン画面：デフォルトだとUserControllerになってしまうので強制的に変更する。
-    $this->BcAuth->loginAction = array( 'controller' => 'mypages', 'action' => 'login');
+    //$this->BcAuth->loginAction = array( 'controller' => 'mypages', 'action' => 'login');
     $this->BcAuth->loginRedirect = array( 'controller' => 'mypages', 'action' => 'index');
 	
     if (preg_match('/^admin_/', $this->action)) {

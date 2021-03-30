@@ -26,7 +26,7 @@ class MembersAppController extends AppController {
 			$prefix = $this->request->params['prefix'];
 		}
 		if($prefix != 'admin'){
-			$this->BcAuth->loginAction = array('plugin' => 'members', 'controller' => 'mypages', 'action' => 'login');
+			//$this->BcAuth->loginAction = array('plugin' => 'members', 'controller' => 'mypages', 'action' => 'login');
 			$this->BcAuth->loginRedirect = array('plugin' => 'members', 'controller' => 'mypages', 'action' => 'index');
 		}
 		$this->set('user', $this->BcAuth->user());
