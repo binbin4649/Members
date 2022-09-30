@@ -134,7 +134,9 @@ class Mypage extends AppModel {
 	    $mypage['Mypage']['status'] = 2;
 	    $mypage['Mypage']['username'] = $user['username'].date('YmdHis');//再入会できるようにする。
 	    $mypage['Mypage']['email'] = $user['email'].date('YmdHis');
-	    $mypage['Mypage']['tel'] = $user['tel'].'-'.date('YmdHis');
+		if(!empty($user['tel'])){
+			$mypage['Mypage']['tel'] = $user['tel'].'-'.date('YmdHis');
+		}
 	    $this->create();
 	    if($this->save($mypage, false)){
 		    $this->Mylog->record($user['id'], 'withdrawal');
