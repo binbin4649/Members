@@ -83,6 +83,27 @@ class Mypage extends AppModel {
             $passwordHasher = new SimplePasswordHasher();
             $this->data['Mypage']['password'] = $passwordHasher->hash($this->data['Mypage']['password']);
         }
+        if (isset($this->data['Mypage']['email'])) {
+           // 完全一致のブラックリストを取得
+            $blackListExact = Configure::read('Member.blackListExact');
+            // 部分一致のブラックリストを取得
+            $blackListPartial = Configure::read('Member.blackListPartial');
+            
+             $email = $this->data['Mypage']['email'];
+            // 完全一致チェック
+            if (is_array($blackListExact) && in_array($email, $blackListExact, true)) {
+                return false;
+            }
+            // 部分一致チェック
+            if(is_array($blackListPartial)){
+                foreach ($blackListPartial as $blackItem) {
+                    if (strpos($email, $blackItem) !== false) {
+                        return false;
+                    }
+                }
+            }
+        }
+
         return true;
     }    
     
