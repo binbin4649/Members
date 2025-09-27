@@ -156,7 +156,7 @@ class Mypage extends AppModel {
     
     public function sendEmail($to, $title = '', $body = '', $options = array()){
 		if(Configure::read('MccPlugin.TEST_MODE')){
-			$email_piece = Configure::read('MccPlugin.TEST_EMAIL_PIECE');
+			$email_piece = Configure::read('MccPlugin.TEST_EMAIL_PIECE');// PIECEが入っていたらメール送信
 			if(strpos($to, $email_piece) === false) return true;
 		}
 		if(!Configure::read('MccPlugin.TEST_MODE')){
@@ -204,7 +204,13 @@ class Mypage extends AppModel {
 		if(empty($options['layout'])){
 			$options['layout'] = 'default';
 		}
-		
+		if(!empty($options['attachments'])){// 1ファイル限定
+			if(!file_exists($options['attachments'])){
+				$this->log('Mypage.php sendEmail attachments file error. :'.$options['attachments']);
+				return false;
+			}
+			$cakeEmail->attachments($options['attachments']);
+		}
 		$cakeEmail->template($options['template'], $options['layout']);
 		$cakeEmail->viewVars($body);
 		
