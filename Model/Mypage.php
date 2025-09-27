@@ -60,8 +60,9 @@ class Mypage extends AppModel {
                 'rule' => array('notBlank'),
                 'message' => '名前を入力して下さい。'),
             'maxLength' => array(
-                'rule' => array('maxLength', 255),
-                'message' => '名前は100文字以内で入力してください。')
+                'rule' => array('maxLength', 14),
+                'on' => 'update',
+                'message' => '名前は14文字以内で入力してください。')
         ),
     );
     
@@ -172,6 +173,7 @@ class Mypage extends AppModel {
 			'tls' => $this->siteConfigs['smtp_tls'] && ($this->siteConfigs['smtp_tls'] == 1)
 		);
 		$cakeEmail = new CakeEmail($config);
+		$this->log('Mypage.php send mail. '.print_r($cakeEmail, true));
 		// charset
 		if (!empty($this->siteConfigs['mail_encode'])) {
 			$encode = $this->siteConfigs['mail_encode'];
@@ -218,7 +220,7 @@ class Mypage extends AppModel {
 			$cakeEmail->send();
 			return true;
 		}catch(Exception $e){
-			$this->log('MccCall.php sendEmail error. '.$e->getMessage());
+			$this->log('Mypage.php sendEmail error. '.$e->getMessage());
 			return false;
 		}
 	}
